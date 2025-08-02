@@ -1,18 +1,22 @@
 import { View, Text, StyleSheet, Pressable, SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { colors } from '../../styles/colors';
 
 const Header = () => {
   const navigation = useNavigation();
+  const route = useRoute();
   const canGoBack = navigation.canGoBack();
+
+  const pantallasSinAtras = ['Inicio', 'Buscar', 'Categorías', 'Favoritos', 'Perfil'];
+  const ocultarAtras = pantallasSinAtras.includes(route.name);
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         {/* Botón atrás */}
         <View style={styles.sideContainer}>
-          {canGoBack ? (
+          {canGoBack && !ocultarAtras ? (
             <Pressable onPress={() => navigation.goBack()} style={styles.iconButton}>
               <Icon name="chevron-left" size={24} color={colors.primary} />
             </Pressable>
