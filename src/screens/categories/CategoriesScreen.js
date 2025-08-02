@@ -4,7 +4,7 @@ import { colors } from '../../styles/colors';
 
 export default function CategoriesScreen({ navigation }) {
   const handleCategoryPress = (categoria) => {
-    navigation.navigate('ProductosPorCategoria', { categoria: categoria.title });
+    navigation.navigate('ProductosPorCategoria', { categoria: categoria.slug });
   };
 
   const renderCategory = ({ item }) => (

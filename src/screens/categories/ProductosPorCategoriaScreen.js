@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image } from 'react
 import Icon from 'react-native-vector-icons/Feather';
 import rawProductos from '../../data/products.json';
 import { normalizarProductos } from '../../utils/normalizarProductos';
+import { formatearNombreCategoria, compararCategoria } from '../../utils/categorias';
 import { colors } from '../../styles/colors';
 
 const productos = normalizarProductos(rawProductos);
@@ -11,7 +12,7 @@ export default function ProductosPorCategoriaScreen({ route, navigation }) {
   const { categoria } = route.params;
 
   const productosFiltrados = productos.filter(
-    (p) => p.category.toLowerCase() === categoria.toLowerCase() && p.stock > 0
+    (p) => compararCategoria(p.category, categoria) && p.stock > 0
   );
 
   const handleProductPress = (producto) => {
@@ -58,7 +59,7 @@ export default function ProductosPorCategoriaScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Productos de {categoria}</Text>
+      <Text style={styles.header}>Productos de {formatearNombreCategoria(categoria)}</Text>
       <FlatList
         data={productosFiltrados}
         renderItem={renderItem}

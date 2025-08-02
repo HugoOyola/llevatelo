@@ -2,42 +2,49 @@
   {
     "id": 1,
     "title": "Gadgets",
+    "slug": "gadgets",
     "emoji": "📱",
     "bgColor": "#FEE2E2"
   },
   {
     "id": 2,
     "title": "Consolas",
+    "slug": "consolas",
     "emoji": "🎮",
     "bgColor": "#DBEAFE"
   },
   {
     "id": 3,
     "title": "Comics",
+    "slug": "comics",
     "emoji": "📖",
     "bgColor": "#FDE68A"
   },
   {
     "id": 4,
     "title": "Coleccionables",
+    "slug": "coleccionables",
     "emoji": "🧸",
     "bgColor": "#E9D5FF"
   },
   {
     "id": 5,
     "title": "Hardware",
+    "slug": "hardware",
     "emoji": "💻",
     "bgColor": "#D1FAE5"
   },
   {
     "id": 6,
     "title": "Ropa & Accesorios",
+    "slug": "ropa-y-accesorios",
     "emoji": "👕",
     "bgColor": "#C7D2FE"
   },
   {
     "id": 7,
     "title": "Eventos",
+    "slug": "eventos",
     "emoji": "🎫",
     "bgColor": "#FBCFE8"
   }
