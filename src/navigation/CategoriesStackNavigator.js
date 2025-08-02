@@ -1,5 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { CategoriesScreen } from "../screens/";
+import ProductosPorCategoriaScreen from "../screens/categories/ProductosPorCategoriaScreen";
+import ProductDetailScreen from "../screens/main/DetalleProductoScreen";
 import Header from "../components/common/Header";
 
 const Stack = createNativeStackNavigator();
@@ -13,6 +15,14 @@ export default function CategoriesStackNavigator() {
       }}
     >
       <Stack.Screen name="Categorías" component={CategoriesScreen} />
+      <Stack.Screen
+        name="ProductosPorCategoria"
+        component={ProductosPorCategoriaScreen}
+      />
+      <Stack.Screen
+        name="DetalleProducto"
+        component={ProductDetailScreen}
+      />
     </Stack.Navigator>
   );
 }

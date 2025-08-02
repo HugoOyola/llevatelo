@@ -1,4 +1,4 @@
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import categorias from '../../data/categories.json';
 import { colors } from '../../styles/colors';
 
@@ -8,8 +8,11 @@ export default function CategoriesScreen({ navigation }) {
   };
 
   const renderCategory = ({ item }) => (
-    <TouchableOpacity style={styles.card} onPress={() => handleCategoryPress(item)}>
-      <Image source={{ uri: item.image }} style={styles.image} />
+    <TouchableOpacity
+      style={[styles.card, { backgroundColor: item.bgColor }]}
+      onPress={() => handleCategoryPress(item)}
+    >
+      <Text style={styles.emoji}>{item.emoji}</Text>
       <Text style={styles.title}>{item.title}</Text>
     </TouchableOpacity>
   );
@@ -19,13 +22,18 @@ export default function CategoriesScreen({ navigation }) {
       <Text style={styles.header}>Explora por categoría</Text>
       <FlatList
         data={categorias}
-        keyExtractor={(item) => item.id.toString()}
         renderItem={renderCategory}
+        keyExtractor={(item) => item.id.toString()}
+        numColumns={2}
+        columnWrapperStyle={styles.row}
         contentContainerStyle={styles.list}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
 }
+
+const CARD_SIZE = '47%';
 
 const styles = StyleSheet.create({
   container: {
@@ -38,29 +46,35 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: colors.textPrimary,
-    marginBottom: 12,
+    marginBottom: 16,
   },
   list: {
     paddingBottom: 20,
   },
+  row: {
+    justifyContent: 'space-between',
+    marginBottom: 16,
+  },
   card: {
-    flexDirection: 'row',
+    width: CARD_SIZE,
+    aspectRatio: 1,
+    borderRadius: 12,
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.background,
     padding: 12,
-    borderRadius: 10,
-    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
     elevation: 2,
   },
-  image: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: colors.surface,
-    marginRight: 12,
+  emoji: {
+    fontSize: 32,
+    marginBottom: 8,
   },
   title: {
     fontSize: 16,
+    fontWeight: '600',
     color: colors.textPrimary,
+    textAlign: 'center',
   },
 });
