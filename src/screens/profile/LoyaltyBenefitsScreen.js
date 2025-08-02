@@ -1,26 +1,37 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { colors } from '../../styles/colors';
 
-const mockOrders = [
-  { id: '1', date: '10/07/2025', total: '$400.000', status: 'Entregado' },
-  { id: '2', date: '02/06/2025', total: '$200.000', status: 'En camino' },
-  { id: '3', date: '25/05/2025', total: '$120.000', status: 'Pendiente' },
+const benefits = [
+  {
+    id: '1',
+    title: '10% de descuento',
+    description: 'Canjea 1000 puntos por un 10% de descuento en tu próxima compra.',
+  },
+  {
+    id: '2',
+    title: 'Envío gratuito',
+    description: 'Canjea 800 puntos para obtener envío gratis.',
+  },
+  {
+    id: '3',
+    title: 'Producto exclusivo',
+    description: 'Accede a productos exclusivos por 2500 puntos.',
+  },
 ];
 
-export default function OrdersScreen() {
+export default function LoyaltyBenefitsScreen() {
   return (
     <View style={styles.container}>
       <FlatList
-        data={mockOrders}
+        data={benefits}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <Text style={styles.date}>Pedido: {item.date}</Text>
-            <Text style={styles.total}>Total: {item.total}</Text>
-            <Text style={styles.status}>Estado: {item.status}</Text>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.description}>{item.description}</Text>
           </View>
         )}
-        ListEmptyComponent={<Text style={styles.empty}>No hay pedidos recientes.</Text>}
+        ListEmptyComponent={<Text style={styles.empty}>No hay beneficios disponibles.</Text>}
       />
     </View>
   );
@@ -40,17 +51,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
   },
-  date: {
+  title: {
     fontWeight: 'bold',
     color: colors.textPrimary,
     marginBottom: 4,
   },
-  total: {
+  description: {
     color: colors.textSecondary,
-  },
-  status: {
-    color: colors.primary,
-    marginTop: 4,
+    fontSize: 13,
   },
   empty: {
     textAlign: 'center',
