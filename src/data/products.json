@@ -10,7 +10,10 @@
     "category": "consolas",
     "discount": 0,
     "tags": ["new", "ofert"],
-    "mainImage": "https://i.postimg.cc/wM7dDrvG/ps5.png"
+    "mainImage": "https://i.postimg.cc/wM7dDrvG/ps5.png",
+    "createdAt": "2024-06-01T00:00:00",
+    "isFeatured": false,
+    "highlight": "nuevo"
   },
   {
     "id": 2,
@@ -23,7 +26,10 @@
     "category": "consolas",
     "discount": 5,
     "tags": ["popular", "classic", "discounts"],
-    "mainImage": "https://i.postimg.cc/mgmZ1KT7/ps4.png"
+    "mainImage": "https://i.postimg.cc/mgmZ1KT7/ps4.png",
+    "createdAt": "2024-06-02T00:00:00",
+    "isFeatured": true,
+    "highlight": "oferta"
   },
   {
     "id": 3,
@@ -36,7 +42,10 @@
     "category": "consolas",
     "discount": 10,
     "tags": ["classic", "retro"],
-    "mainImage": "https://i.postimg.cc/fRzTLMQw/ps3.png"
+    "mainImage": "https://i.postimg.cc/fRzTLMQw/ps3.png",
+    "createdAt": "2024-06-03T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 4,
@@ -49,7 +58,10 @@
     "category": "consolas",
     "discount": 20,
     "tags": ["retro", "vintage"],
-    "mainImage": "https://i.postimg.cc/sD9gsv86/ps2.png"
+    "mainImage": "https://i.postimg.cc/sD9gsv86/ps2.png",
+    "createdAt": "2024-06-04T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 5,
@@ -62,7 +74,10 @@
     "category": "consolas",
     "discount": 25,
     "tags": ["vintage", "collector"],
-    "mainImage": "https://i.postimg.cc/XN5v12g0/ps1.png"
+    "mainImage": "https://i.postimg.cc/XN5v12g0/ps1.png",
+    "createdAt": "2024-06-05T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 6,
@@ -75,7 +90,10 @@
     "category": "consolas",
     "discount": 15,
     "tags": ["classic", "retro"],
-    "mainImage": "https://i.postimg.cc/SKKsZkgZ/xbox1.png"
+    "mainImage": "https://i.postimg.cc/SKKsZkgZ/xbox1.png",
+    "createdAt": "2024-06-06T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 7,
@@ -88,7 +106,10 @@
     "category": "consolas",
     "discount": 10,
     "tags": ["classic", "popular"],
-    "mainImage": "https://i.postimg.cc/xTS1wKsN/xbox360.png"
+    "mainImage": "https://i.postimg.cc/xTS1wKsN/xbox360.png",
+    "createdAt": "2024-06-07T00:00:00",
+    "isFeatured": true,
+    "highlight": "oferta"
   },
   {
     "id": 8,
@@ -101,7 +122,10 @@
     "category": "consolas",
     "discount": 5,
     "tags": ["modern", "new"],
-    "mainImage": "https://i.postimg.cc/MH1KcTGG/xboxone.png"
+    "mainImage": "https://i.postimg.cc/MH1KcTGG/xboxone.png",
+    "createdAt": "2024-06-08T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 9,
@@ -114,7 +138,10 @@
     "category": "consolas",
     "discount": 0,
     "tags": ["next-gen", "new"],
-    "mainImage": "https://i.postimg.cc/ydgNHn4c/xboxx.png"
+    "mainImage": "https://i.postimg.cc/ydgNHn4c/xboxx.png",
+    "createdAt": "2024-06-09T00:00:00",
+    "isFeatured": false,
+    "highlight": "nuevo"
   },
   {
     "id": 10,
@@ -127,7 +154,10 @@
     "category": "consolas",
     "discount": 10,
     "tags": ["popular", "family"],
-    "mainImage": "https://i.postimg.cc/FRMHscNq/wii.png"
+    "mainImage": "https://i.postimg.cc/FRMHscNq/wii.png",
+    "createdAt": "2024-06-10T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 11,
@@ -140,7 +170,10 @@
     "category": "portátiles",
     "discount": 5,
     "tags": ["portable", "classic"],
-    "mainImage": "https://i.postimg.cc/ZqDq22gJ/psp.png"
+    "mainImage": "https://i.postimg.cc/ZqDq22gJ/psp.png",
+    "createdAt": "2024-06-11T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 12,
@@ -153,7 +186,10 @@
     "category": "consolas",
     "discount": 30,
     "tags": ["retro", "collector"],
-    "mainImage": "https://i.postimg.cc/g2sjqnHX/segagenesis.png"
+    "mainImage": "https://i.postimg.cc/g2sjqnHX/segagenesis.png",
+    "createdAt": "2024-06-12T00:00:00",
+    "isFeatured": true,
+    "highlight": "oferta"
   },
   {
     "id": 13,
@@ -166,7 +202,10 @@
     "category": "consolas",
     "discount": 40,
     "tags": ["retro", "nostalgic"],
-    "mainImage": "https://i.postimg.cc/g2mrZv8b/familygame.png"
+    "mainImage": "https://i.postimg.cc/g2mrZv8b/familygame.png",
+    "createdAt": "2024-06-13T00:00:00",
+    "isFeatured": true,
+    "highlight": "oferta"
   },
   {
     "id": 14,
@@ -179,7 +218,10 @@
     "category": "gadgets",
     "discount": 10,
     "tags": ["storage", "new"],
-    "mainImage": "https://i.postimg.cc/gkvnjMwK/kingston64.png"
+    "mainImage": "https://i.postimg.cc/gkvnjMwK/kingston64.png",
+    "createdAt": "2024-06-14T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 15,
@@ -192,7 +234,10 @@
     "category": "gadgets",
     "discount": 5,
     "tags": ["AR", "new"],
-    "mainImage": "https://i.postimg.cc/N0VgpT9M/oriongafas.png"
+    "mainImage": "https://i.postimg.cc/N0VgpT9M/oriongafas.png",
+    "createdAt": "2024-06-15T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 16,
@@ -205,7 +250,10 @@
     "category": "gadgets",
     "discount": 15,
     "tags": ["health", "smart"],
-    "mainImage": "https://i.postimg.cc/Y0BtwHxB/Oralbgenius.png"
+    "mainImage": "https://i.postimg.cc/Y0BtwHxB/Oralbgenius.png",
+    "createdAt": "2024-06-16T00:00:00",
+    "isFeatured": true,
+    "highlight": "oferta"
   },
   {
     "id": 17,
@@ -218,7 +266,10 @@
     "category": "gadgets",
     "discount": 10,
     "tags": ["wearable", "fitness"],
-    "mainImage": "https://i.postimg.cc/8kL1m71p/Fitbbit-Sense.png"
+    "mainImage": "https://i.postimg.cc/8kL1m71p/Fitbbit-Sense.png",
+    "createdAt": "2024-06-17T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 18,
@@ -231,7 +282,10 @@
     "category": "gadgets",
     "discount": 5,
     "tags": ["massage", "wellness"],
-    "mainImage": "https://i.postimg.cc/T1jfd4kL/Theragunmini.png"
+    "mainImage": "https://i.postimg.cc/T1jfd4kL/Theragunmini.png",
+    "createdAt": "2024-06-18T00:00:00",
+    "isFeatured": true,
+    "highlight": "oferta"
   },
   {
     "id": 19,
@@ -244,7 +298,10 @@
     "category": "gadgets",
     "discount": 8,
     "tags": ["VR", "gaming"],
-    "mainImage": "https://i.postimg.cc/hGhDLMG6/cascorvps4.png"
+    "mainImage": "https://i.postimg.cc/hGhDLMG6/cascorvps4.png",
+    "createdAt": "2024-06-19T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 20,
@@ -257,7 +314,10 @@
     "category": "gadgets",
     "discount": 12,
     "tags": ["charger", "wireless"],
-    "mainImage": "https://i.postimg.cc/wTK16KBv/cargadorinalambricosamsung.png"
+    "mainImage": "https://i.postimg.cc/wTK16KBv/cargadorinalambricosamsung.png",
+    "createdAt": "2024-06-20T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 21,
@@ -270,7 +330,10 @@
     "category": "gadgets",
     "discount": 10,
     "tags": ["smart-home", "assistant"],
-    "mainImage": "https://i.postimg.cc/v8x1F8bk/googlenestmini.png"
+    "mainImage": "https://i.postimg.cc/v8x1F8bk/googlenestmini.png",
+    "createdAt": "2024-06-21T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 22,
@@ -283,7 +346,10 @@
     "category": "gadgets",
     "discount": 10,
     "tags": ["audio", "bluetooth"],
-    "mainImage": "https://i.postimg.cc/vmP1Mc1F/sonyauriculares.png"
+    "mainImage": "https://i.postimg.cc/vmP1Mc1F/sonyauriculares.png",
+    "createdAt": "2024-06-22T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 23,
@@ -296,7 +362,10 @@
     "category": "gadgets",
     "discount": 7,
     "tags": ["action-camera", "adventure"],
-    "mainImage": "https://i.postimg.cc/DZ8SznsW/goprohero9.png"
+    "mainImage": "https://i.postimg.cc/DZ8SznsW/goprohero9.png",
+    "createdAt": "2024-06-23T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 24,
@@ -309,7 +378,10 @@
     "category": "comics",
     "discount": 5,
     "tags": ["superhero", "classic"],
-    "mainImage": "https://i.postimg.cc/2yW34G0r/batmanthekillingjoke.png"
+    "mainImage": "https://i.postimg.cc/2yW34G0r/batmanthekillingjoke.png",
+    "createdAt": "2024-06-24T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 25,
@@ -322,7 +394,10 @@
     "category": "comics",
     "discount": 10,
     "tags": ["superhero", "multiverse"],
-    "mainImage": "https://i.postimg.cc/HxRVcR46/spiderman.png"
+    "mainImage": "https://i.postimg.cc/HxRVcR46/spiderman.png",
+    "createdAt": "2024-06-25T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 26,
@@ -335,7 +410,10 @@
     "category": "comics",
     "discount": 8,
     "tags": ["classic", "superhero"],
-    "mainImage": "https://i.postimg.cc/wjpRkKKP/watchmen.png"
+    "mainImage": "https://i.postimg.cc/wjpRkKKP/watchmen.png",
+    "createdAt": "2024-06-26T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 27,
@@ -348,7 +426,10 @@
     "category": "comics",
     "discount": 12,
     "tags": ["sci-fi", "fantasy"],
-    "mainImage": "https://i.postimg.cc/TP2yZr3J/sagavol1.png"
+    "mainImage": "https://i.postimg.cc/TP2yZr3J/sagavol1.png",
+    "createdAt": "2024-06-27T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 28,
@@ -361,7 +442,10 @@
     "category": "gadgets",
     "discount": 10,
     "tags": ["storage", "new"],
-    "mainImage": "https://i.postimg.cc/02x9W9Qp/kingston32.png"
+    "mainImage": "https://i.postimg.cc/02x9W9Qp/kingston32.png",
+    "createdAt": "2024-06-28T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 29,
@@ -374,7 +458,10 @@
     "category": "coleccionables",
     "discount": 5,
     "tags": ["star-wars", "funko"],
-    "mainImage": "https://i.postimg.cc/t4NZSrpg/darthvaderpop.png"
+    "mainImage": "https://i.postimg.cc/t4NZSrpg/darthvaderpop.png",
+    "createdAt": "2024-06-29T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 30,
@@ -387,7 +474,10 @@
     "category": "coleccionables",
     "discount": 10,
     "tags": ["marvel", "action-figure"],
-    "mainImage": "https://i.postimg.cc/gkR6Rz78/ironman.png"
+    "mainImage": "https://i.postimg.cc/gkR6Rz78/ironman.png",
+    "createdAt": "2024-06-30T00:00:00",
+    "isFeatured": true,
+    "highlight": "oferta"
   },
   {
     "id": 31,
@@ -400,7 +490,10 @@
     "category": "coleccionables",
     "discount": 8,
     "tags": ["lotr", "figure"],
-    "mainImage": "https://i.postimg.cc/DfSGvddC/gandalf.png"
+    "mainImage": "https://i.postimg.cc/DfSGvddC/gandalf.png",
+    "createdAt": "2024-07-01T00:00:00",
+    "isFeatured": true,
+    "highlight": "oferta"
   },
   {
     "id": 32,
@@ -413,7 +506,10 @@
     "category": "coleccionables",
     "discount": 15,
     "tags": ["got", "replica"],
-    "mainImage": "https://i.postimg.cc/pV3FphsP/tronodehierro.png"
+    "mainImage": "https://i.postimg.cc/pV3FphsP/tronodehierro.png",
+    "createdAt": "2024-07-02T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 33,
@@ -426,7 +522,10 @@
     "category": "coleccionables",
     "discount": 20,
     "tags": ["harry-potter", "autograph"],
-    "mainImage": "https://i.postimg.cc/L5g2csPT/harrypotter.png"
+    "mainImage": "https://i.postimg.cc/L5g2csPT/harrypotter.png",
+    "createdAt": "2024-07-03T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 34,
@@ -439,7 +538,10 @@
     "category": "hardware",
     "discount": 5,
     "tags": ["cpu", "high-performance"],
-    "mainImage": "https://i.postimg.cc/RFDvptWh/corei9.png"
+    "mainImage": "https://i.postimg.cc/RFDvptWh/corei9.png",
+    "createdAt": "2024-07-04T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 35,
@@ -452,7 +554,10 @@
     "category": "hardware",
     "discount": 10,
     "tags": ["motherboard", "gaming"],
-    "mainImage": "https://i.postimg.cc/FzYCGdS9/asusrog.png"
+    "mainImage": "https://i.postimg.cc/FzYCGdS9/asusrog.png",
+    "createdAt": "2024-07-05T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 36,
@@ -465,7 +570,10 @@
     "category": "hardware",
     "discount": 7,
     "tags": ["gpu", "gaming"],
-    "mainImage": "https://i.postimg.cc/zBBJk7X4/geforcertx.png"
+    "mainImage": "https://i.postimg.cc/zBBJk7X4/geforcertx.png",
+    "createdAt": "2024-07-06T00:00:00",
+    "isFeatured": true,
+    "highlight": "oferta"
   },
   {
     "id": 37,
@@ -478,7 +586,10 @@
     "category": "hardware",
     "discount": 15,
     "tags": ["arduino", "electronics"],
-    "mainImage": "https://i.postimg.cc/cJTxY2ZQ/arduino1.png"
+    "mainImage": "https://i.postimg.cc/cJTxY2ZQ/arduino1.png",
+    "createdAt": "2024-07-07T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 38,
@@ -491,7 +602,10 @@
     "category": "hardware",
     "discount": 10,
     "tags": ["robotics", "kit"],
-    "mainImage": "https://i.postimg.cc/43X4YsCf/kitrobotica.png"
+    "mainImage": "https://i.postimg.cc/43X4YsCf/kitrobotica.png",
+    "createdAt": "2024-07-08T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 39,
@@ -504,7 +618,10 @@
     "category": "hardware",
     "discount": 12,
     "tags": ["ram", "ddr4"],
-    "mainImage": "https://i.postimg.cc/fRcTWkrq/corsair.png"
+    "mainImage": "https://i.postimg.cc/fRcTWkrq/corsair.png",
+    "createdAt": "2024-07-09T00:00:00",
+    "isFeatured": true,
+    "highlight": "oferta"
   },
   {
     "id": 40,
@@ -517,7 +634,10 @@
     "category": "hardware",
     "discount": 5,
     "tags": ["ssd", "storage"],
-    "mainImage": "https://i.postimg.cc/ZKy5gwFS/samsungssd.png"
+    "mainImage": "https://i.postimg.cc/ZKy5gwFS/samsungssd.png",
+    "createdAt": "2024-07-10T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 41,
@@ -530,7 +650,10 @@
     "category": "hardware",
     "discount": 8,
     "tags": ["3d-printing", "creality"],
-    "mainImage": "https://i.postimg.cc/13h3ZDJN/impresora3dcrealy.png"
+    "mainImage": "https://i.postimg.cc/13h3ZDJN/impresora3dcrealy.png",
+    "createdAt": "2024-07-11T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 42,
@@ -543,7 +666,10 @@
     "category": "ropa-y-accesorios",
     "discount": 10,
     "tags": ["tbbt", "sheldon"],
-    "mainImage": "https://i.postimg.cc/FzwszSv8/bazinga.png"
+    "mainImage": "https://i.postimg.cc/FzwszSv8/bazinga.png",
+    "createdAt": "2024-07-12T00:00:00",
+    "isFeatured": true,
+    "highlight": "oferta"
   },
   {
     "id": 43,
@@ -556,7 +682,10 @@
     "category": "ropa-y-accesorios",
     "discount": 15,
     "tags": ["harry-potter", "hogwarts"],
-    "mainImage": "https://i.postimg.cc/jq1jZpfc/mochilaharrypotter.png"
+    "mainImage": "https://i.postimg.cc/jq1jZpfc/mochilaharrypotter.png",
+    "createdAt": "2024-07-13T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 44,
@@ -569,7 +698,10 @@
     "category": "ropa-y-accesorios",
     "discount": 5,
     "tags": ["star-wars", "hat"],
-    "mainImage": "https://i.postimg.cc/5yX2f3h8/gorrastarwars.png"
+    "mainImage": "https://i.postimg.cc/5yX2f3h8/gorrastarwars.png",
+    "createdAt": "2024-07-14T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 45,
@@ -582,7 +714,10 @@
     "category": "ropa-y-accesorios",
     "discount": 10,
     "tags": ["fitbit", "fitness"],
-    "mainImage": "https://i.postimg.cc/RFs0r8DM/fitbitcharge.png"
+    "mainImage": "https://i.postimg.cc/RFs0r8DM/fitbitcharge.png",
+    "createdAt": "2024-07-15T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 46,
@@ -595,7 +730,10 @@
     "category": "ropa-y-accesorios",
     "discount": 8,
     "tags": ["flash", "dc-comics"],
-    "mainImage": "https://i.postimg.cc/QMqtmVgK/remeratheflash.png"
+    "mainImage": "https://i.postimg.cc/QMqtmVgK/remeratheflash.png",
+    "createdAt": "2024-07-16T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 47,
@@ -608,7 +746,10 @@
     "category": "ropa-y-accesorios",
     "discount": 10,
     "tags": ["wonder-woman", "bag"],
-    "mainImage": "https://i.postimg.cc/cJWCff3N/bolsowonderwoman.png"
+    "mainImage": "https://i.postimg.cc/cJWCff3N/bolsowonderwoman.png",
+    "createdAt": "2024-07-17T00:00:00",
+    "isFeatured": true,
+    "highlight": "oferta"
   },
   {
     "id": 48,
@@ -621,7 +762,10 @@
     "category": "eventos",
     "discount": 0,
     "tags": ["star-wars", "music"],
-    "mainImage": "https://i.postimg.cc/4NrmNDNy/conciertostarwars.png"
+    "mainImage": "https://i.postimg.cc/4NrmNDNy/conciertostarwars.png",
+    "createdAt": "2024-07-18T00:00:00",
+    "isFeatured": false,
+    "highlight": "popular"
   },
   {
     "id": 49,
@@ -634,7 +778,10 @@
     "category": "eventos",
     "discount": 10,
     "tags": ["comics", "pop-culture"],
-    "mainImage": "https://i.postimg.cc/RZKq3gNR/comiccon.png"
+    "mainImage": "https://i.postimg.cc/RZKq3gNR/comiccon.png",
+    "createdAt": "2024-07-19T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   },
   {
     "id": 50,
@@ -647,6 +794,9 @@
     "category": "eventos",
     "discount": 5,
     "tags": ["literature", "books"],
-    "mainImage": "https://i.postimg.cc/c4KvWxWP/feriadellibro.png"
+    "mainImage": "https://i.postimg.cc/c4KvWxWP/feriadellibro.png",
+    "createdAt": "2024-07-20T00:00:00",
+    "isFeatured": false,
+    "highlight": "oferta"
   }
 ]

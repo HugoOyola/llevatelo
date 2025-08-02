@@ -1,8 +1,11 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import Badge from '../common/Badge';
 import { colors } from '../../styles/colors';
 
-export default function ProductCard({ product, onPress }) {
+const { width } = Dimensions.get('window');
+const CARD_WIDTH = (width - 36) / 2;
+
+export default function ProductCard({ product, onPress, cardWidth = CARD_WIDTH, showDiscount = false }) {
   const isOutOfStock = product.stock === 0;
   const hasDiscount = product.discount > 0;
   const finalPrice = product.price - (product.price * product.discount / 100);
@@ -15,23 +18,39 @@ export default function ProductCard({ product, onPress }) {
   };
 
   return (
-    <TouchableOpacity style={styles.card} onPress={() => onPress(product)} disabled={isOutOfStock}>
+    <TouchableOpacity
+      style={[styles.card, { width: cardWidth }]}
+      onPress={() => onPress(product)}
+      disabled={isOutOfStock}
+    >
       <Image source={{ uri: product.mainImage }} style={styles.image} />
+
       <View style={styles.badgeRow}>
         {product.tags?.map(tag => (
-          <Badge key={tag} label={tag.charAt(0).toUpperCase() + tag.slice(1)} color={badgeColors[tag] || colors.border} textColor={colors.textWhite} />
+          <Badge
+            key={tag}
+            label={tag.charAt(0).toUpperCase() + tag.slice(1)}
+            color={badgeColors[tag] || colors.border}
+            textColor={colors.textWhite}
+          />
         ))}
         {isOutOfStock && <Badge label="Sin Stock" color={colors.error} textColor="#fff" />}
       </View>
-      <Text style={styles.brand}>{product.brand}</Text>
-      <Text style={styles.title} numberOfLines={1}>{product.title}</Text>
-      {hasDiscount ? (
-        <View style={styles.priceRow}>
-          <Text style={styles.oldPrice}>S/ {product.price.toLocaleString()}</Text>
-          <Text style={styles.discount}>-{product.discount}%</Text>
-        </View>
-      ) : null}
-      <Text style={styles.price}>S/ {finalPrice.toLocaleString()}</Text>
+
+      <View style={styles.infoContainer}>
+        <Text style={styles.brand}>{product.brand}</Text>
+        <Text style={styles.title} numberOfLines={1}>{product.title}</Text>
+
+        {hasDiscount && (
+          <View style={styles.priceRow}>
+            <Text style={styles.oldPrice}>S/ {product.price.toLocaleString()}</Text>
+            {showDiscount && <Text style={styles.discount}>-{product.discount}%</Text>}
+          </View>
+        )}
+
+        <Text style={styles.price}>S/ {finalPrice.toLocaleString()}</Text>
+      </View>
+
       <View style={[styles.button, isOutOfStock && styles.buttonDisabled]}>
         <Text style={[styles.buttonText, isOutOfStock && styles.buttonTextDisabled]}>
           {isOutOfStock ? 'Sin Stock' : 'Agregar'}
@@ -43,12 +62,13 @@ export default function ProductCard({ product, onPress }) {
 
 const styles = StyleSheet.create({
   card: {
-    flex: 1,
-    margin: 8,
+    marginBottom: 16,
     padding: 10,
     backgroundColor: colors.background,
     borderRadius: 10,
     elevation: 2,
+    minHeight: 280,
+    justifyContent: 'space-between',
   },
   image: {
     width: '100%',
@@ -59,7 +79,11 @@ const styles = StyleSheet.create({
   badgeRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    gap: 4,
     marginBottom: 6,
+  },
+  infoContainer: {
+    flexGrow: 1,
   },
   brand: {
     fontSize: 11,
@@ -69,6 +93,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '600',
     color: colors.textPrimary,
+    marginBottom: 4,
   },
   priceRow: {
     flexDirection: 'row',
@@ -93,7 +118,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   button: {
-    marginTop: 8,
+    marginTop: 12,
     backgroundColor: colors.primary,
     borderRadius: 6,
     paddingVertical: 6,

@@ -9,7 +9,7 @@ export default function SearchStackNavigator() {
     <Stack.Navigator
       initialRouteName="Buscar"
       screenOptions={{
-        header: ({ route }) => <Header title="Mundo Geek" subtitle={route.name} />,
+        header: () => <Header />,
       }}
     >
       <Stack.Screen name="Buscar" component={SearchScreen} />

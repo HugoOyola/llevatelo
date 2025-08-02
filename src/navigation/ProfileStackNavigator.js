@@ -14,9 +14,7 @@ export default function ProfileStackNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
-        header: ({ route }) => (
-          <Header title="Llévatelo" subtitle={route.name} />
-        ),
+        header: () => <Header />,
       }}
     >
       <Stack.Screen name="Perfil" component={ProfileScreen} />

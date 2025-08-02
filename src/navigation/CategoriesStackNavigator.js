@@ -9,7 +9,7 @@ export default function CategoriesStackNavigator() {
     <Stack.Navigator
       initialRouteName="Categorías"
       screenOptions={{
-        header: ({ route }) => <Header title="Mundo Geek" subtitle={route.name} />,
+        header: () => <Header />,
       }}
     >
       <Stack.Screen name="Categorías" component={CategoriesScreen} />

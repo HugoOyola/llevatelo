@@ -9,7 +9,7 @@ export default function FavoritesStackNavigator() {
     <Stack.Navigator
       initialRouteName="Favoritos"
       screenOptions={{
-        header: ({ route }) => <Header title="Mundo Geek" subtitle={route.name} />,
+        header: () => <Header />,
       }}
     >
       <Stack.Screen name="Favoritos" component={FavoritesScreen} />
