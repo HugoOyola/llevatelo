@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
   },
   seccionTitulo: {
     fontSize: 18,
+    marginBottom: 8,
     fontWeight: 'bold',
     color: colors.textPrimary,
   },

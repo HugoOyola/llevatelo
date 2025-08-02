@@ -4,7 +4,9 @@ import { colors } from '../../styles/colors';
 export default function CategoryItem({ category, onPress }) {
   return (
     <TouchableOpacity style={styles.container} onPress={() => onPress(category)}>
-      <Image source={{ uri: category.image }} style={styles.image} />
+      <View style={[styles.emojiContainer, { backgroundColor: category.bgColor || '#eee' }]}>
+        <Text style={styles.emoji}>{category.emoji}</Text>
+      </View>
       <Text style={styles.title}>{category.title}</Text>
     </TouchableOpacity>
   );
@@ -14,16 +16,23 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     marginRight: 12,
+    width: 72,
   },
-  image: {
+  emojiContainer: {
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: colors.surface,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 6,
   },
-  title: {
-    fontSize: 12,
-    color: colors.textSecondary,
+  emoji: {
+    fontSize: 28,
   },
+  title: {
+    fontSize: 10,
+    textAlign: 'center',
+    color: colors.textSecondary,
+    maxWidth: 70,
+  }
 });

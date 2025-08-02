@@ -2,36 +2,43 @@
   {
     "id": 1,
     "title": "Gadgets",
-    "image": "https://i.postimg.cc/QCfcGMJw/gadget.png"
+    "emoji": "📱",
+    "bgColor": "#FEE2E2"
   },
   {
     "id": 2,
     "title": "Consolas",
-    "image": "https://i.postimg.cc/MTby55MW/consolas.png"
+    "emoji": "🎮",
+    "bgColor": "#DBEAFE"
   },
   {
     "id": 3,
     "title": "Comics",
-    "image": "https://i.postimg.cc/RhSwDtKw/comics.png"
+    "emoji": "📖",
+    "bgColor": "#FDE68A"
   },
   {
     "id": 4,
     "title": "Coleccionables",
-    "image": "https://i.postimg.cc/RFz7wy0s/coleccionables.png"
+    "emoji": "🧸",
+    "bgColor": "#E9D5FF"
   },
   {
     "id": 5,
     "title": "Hardware",
-    "image": "https://i.postimg.cc/hvs1DscC/arduino.png"
+    "emoji": "💻",
+    "bgColor": "#D1FAE5"
   },
   {
     "id": 6,
-    "title": "Ropa&Accesorios",
-    "image": "https://i.postimg.cc/9Q6ZjKym/remeras.png"
+    "title": "Ropa & Accesorios",
+    "emoji": "👕",
+    "bgColor": "#C7D2FE"
   },
   {
     "id": 7,
     "title": "Eventos",
-    "image": "https://i.postimg.cc/zfTWD7kn/ticket.png"
+    "emoji": "🎫",
+    "bgColor": "#FBCFE8"
   }
 ]
