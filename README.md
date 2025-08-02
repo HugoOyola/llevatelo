@@ -230,8 +230,8 @@ Este proyecto está bajo la Licencia MIT. Ve el archivo [LICENSE](LICENSE) para 
 ## 👨‍💻 Autor
 
 **Tu Nombre**
-- GitHub: [@tu-usuario](https://github.com/tu-usuario)
-- Email: tu-email@ejemplo.com
+- GitHub: [@HugoOyola](https://github.com/HugoOyola)
+- Email: hugo212h@gmail.com
 
 ## 🙏 Agradecimientos
 
