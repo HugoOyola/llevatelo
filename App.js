@@ -3,7 +3,8 @@ import { StyleSheet } from 'react-native';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import AppNavigator from './src/navigation/AppNavigator';
+import RootStackNavigator from './src/navigation/RootStackNavigator';
+import { NavigationContainer } from '@react-navigation/native';
 import { colors } from './src/styles/colors';
 
 SplashScreen.preventAutoHideAsync();
@@ -26,10 +27,10 @@ export default function App() {
 
   return (
     <>
-      <StatusBar style="light" backgroundColor={colors.primaryDark} />
-      <AppNavigator />
+      <StatusBar style="light" />
+      <NavigationContainer>
+        <RootStackNavigator />
+      </NavigationContainer>
     </>
   );
 }
-
-const styles = StyleSheet.create({});

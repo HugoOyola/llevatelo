@@ -35,10 +35,15 @@ const Header = () => {
             <Icon name="search" size={20} color={colors.primary} />
           </Pressable>
           <Pressable
-            onPress={() => navigation.navigate('Carrito')}
+            onPress={() => navigation.navigate('CarritoStack')}
             style={styles.iconButton}
           >
             <Icon name="shopping-cart" size={20} color={colors.primary} />
+            {true && (
+              <View style={styles.badge}>
+                <Text style={styles.badgeText}>3</Text>
+              </View>
+            )}
           </Pressable>
         </View>
       </View>
@@ -87,5 +92,22 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     width: 32,
+  },
+  badge: {
+    position: 'absolute',
+    top: 2,
+    right: 0,
+    backgroundColor: colors.error,
+    borderRadius: 8,
+    paddingHorizontal: 5,
+    paddingVertical: 1,
+    minWidth: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  badgeText: {
+    color: colors.textWhite,
+    fontSize: 10,
+    fontWeight: 'bold',
   },
 });
