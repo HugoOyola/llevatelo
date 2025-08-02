@@ -41,6 +41,7 @@ export default function SearchScreen({ navigation }) {
   };
 
   const limpiarRecientes = () => setRecientes([]);
+  const limpiarInput = () => setQuery('');
 
   const handleProductPress = (producto) => {
     navigation.navigate('DetalleProducto', { producto });
@@ -60,7 +61,7 @@ export default function SearchScreen({ navigation }) {
   );
 
   const renderProduct = ({ item }) => (
-    <ProductCard product={item} onPress={handleProductPress} />
+    <ProductCard product={item} onPress={() => handleProductPress(item)} />
   );
 
   return (
@@ -76,6 +77,11 @@ export default function SearchScreen({ navigation }) {
           returnKeyType="search"
           onSubmitEditing={() => handleSearch(query)}
         />
+        {query.length > 0 && (
+          <TouchableOpacity onPress={limpiarInput}>
+            <Icon name="x" size={16} color={colors.textMuted} />
+          </TouchableOpacity>
+        )}
       </View>
 
       {query.length === 0 ? (
@@ -138,6 +144,7 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     borderWidth: 1,
     paddingHorizontal: 12,
+    paddingVertical: 8,
     marginBottom: 16,
   },
   icon: {
@@ -147,6 +154,8 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 15,
     color: colors.textPrimary,
+    paddingVertical: 10,
+    minHeight: 40,
   },
   section: {
     marginBottom: 24,

@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/main/HomeScreen';
 import ProductosFiltradosScreen from '../screens/main/ProductosFiltradosScreen';
 import ProductosPorCategoriaScreen from '../screens/main/ProductosPorCategoriaScreen';
-import DetalleProductoScreen from '../screens/main/DetalleProductoScreen';
+import ProductDetailScreen from '../screens/main/ProductDetailScreen';
 import Header from '../components/common/Header';
 
 const Stack = createNativeStackNavigator();
@@ -32,7 +32,7 @@ export default function MainStackNavigator() {
       />
       <Stack.Screen
         name="DetalleProducto"
-        component={DetalleProductoScreen}
+        component={ProductDetailScreen}
         options={({ route }) => ({ title: route.params?.producto?.title || 'Detalle' })}
       />
     </Stack.Navigator>

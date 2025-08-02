@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { colors } from '../../styles/colors';
 
 export default function ProductDetailScreen({ route }) {
   const { producto } = route.params;
+
+  // Validación por si no se pasa el producto correctamente
+  if (!producto) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={{ color: colors.textPrimary }}>Producto no encontrado</Text>
+      </View>
+    );
+  }
+
   const [quantity, setQuantity] = useState(1);
 
   const handleDecrease = () => {
