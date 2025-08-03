@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AppNavigator from './AppNavigator';
+import TabNavigator from './TabNavigator'; // Importar directamente TabNavigator
 import SearchStackNavigator from './SearchStackNavigator';
 
 const RootStack = createNativeStackNavigator();
@@ -7,8 +7,8 @@ const RootStack = createNativeStackNavigator();
 export default function RootStackNavigator() {
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
-      <RootStack.Screen name="AppTabs" component={AppNavigator} />
-      <RootStack.Screen name="BuscarModal" component={SearchStackNavigator} />
+      <RootStack.Screen name="Home" component={TabNavigator} />
+      <RootStack.Screen name="Buscar" component={SearchStackNavigator} />
     </RootStack.Navigator>
   );
 }
