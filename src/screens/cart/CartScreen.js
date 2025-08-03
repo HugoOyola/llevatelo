@@ -157,6 +157,8 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     backgroundColor: colors.background,
     borderRadius: 8,
+    borderWidth: 1,
+    borderColor: colors.border,
     padding: 10,
     alignItems: 'center',
     shadowColor: colors.cardShadow,
