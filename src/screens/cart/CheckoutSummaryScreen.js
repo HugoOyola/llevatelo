@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   },
   optionSelected: {
     borderColor: colors.primary,
-    backgroundColor: colors.primaryLight,
+    backgroundColor: colors.primaryBackground,
   },
   optionLabel: {
     fontSize: 14,

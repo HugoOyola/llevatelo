@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
   },
   cardSelected: {
     borderColor: colors.primary,
-    backgroundColor: colors.primaryLight,
+    backgroundColor: colors.primaryBackground,
   },
   cardContent: {
     flexDirection: 'row',

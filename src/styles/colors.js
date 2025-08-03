@@ -3,6 +3,7 @@ export const colors = {
   primary: '#FF6B35',        // Naranja vibrante
   primaryDark: '#E55A2B',    // Naranja oscuro
   primaryLight: '#FF8A5B',   // Naranja claro
+  primaryBackground: '#fbfcdcff',    // Fondo claro para el tema primario
 
   // Colores secundarios
   secondary: '#2D3748',      // Azul grisáceo oscuro
