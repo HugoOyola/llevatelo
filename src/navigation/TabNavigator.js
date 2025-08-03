@@ -1,14 +1,31 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { colors } from "../styles/colors";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import MainStackNavigator from "./MainStackNavigator";
 import CategoriesStackNavigator from "./CategoriesStackNavigator";
 import SearchStackNavigator from "./SearchStackNavigator";
 import FavoritesStackNavigator from "./FavoritesStackNavigator";
 import ProfileStackNavigator from "./ProfileStackNavigator";
+import CartStackNavigator from "./CartStackNavigator"; // Asegúrate de importar esto
+import { useCart } from '../hooks/useCart';
 
 const Tab = createBottomTabNavigator();
+
+function CartTabIcon({ color, size }) {
+  const { itemCount } = useCart();
+
+  return (
+    <View style={{ position: 'relative' }}>
+      <Icon name="bag-outline" size={size} color={color} />
+      {itemCount > 0 && (
+        <View style={styles.tabBadge}>
+          <Text style={styles.tabBadgeText}>{itemCount}</Text>
+        </View>
+      )}
+    </View>
+  );
+}
 
 export default function TabNavigator() {
   return (
@@ -16,8 +33,8 @@ export default function TabNavigator() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: styles.tabBar,
-        tabBarActiveTintColor: colors.primary,       // Color del texto activo
-        tabBarInactiveTintColor: colors.textSecondary, // Color del texto inactivo
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.textSecondary,
       }}
     >
       <Tab.Screen
@@ -55,6 +72,13 @@ export default function TabNavigator() {
           tabBarIcon: ({ color, size }) => <Icon name="person-outline" size={size} color={color} />,
         }}
       />
+      <Tab.Screen
+        name="Carrito"
+        component={CartStackNavigator}
+        options={{
+          tabBarIcon: CartTabIcon,
+        }}
+      />
     </Tab.Navigator>
   );
 }
@@ -62,5 +86,22 @@ export default function TabNavigator() {
 const styles = StyleSheet.create({
   tabBar: {
     backgroundColor: colors.background,
+  },
+  tabBadge: {
+    position: 'absolute',
+    right: -6,
+    top: -3,
+    backgroundColor: colors.error,
+    borderRadius: 6,
+    width: 12,
+    height: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    minWidth: 12,
+  },
+  tabBadgeText: {
+    color: colors.textWhite,
+    fontSize: 10,
+    fontWeight: 'bold',
   },
 });

@@ -1,30 +1,27 @@
+import React from 'react';
 import { View, Text, StyleSheet, Pressable, SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import { colors } from '../../styles/colors';
+import { useCart } from '../../hooks/useCart';
+import { useNavigation } from '@react-navigation/native';
 
 const Header = () => {
+  const { itemCount } = useCart();
   const navigation = useNavigation();
-  const route = useRoute();
-  const canGoBack = navigation.canGoBack();
 
-  const pantallasSinAtras = ['Inicio', 'Buscar', 'Categorías', 'Favoritos', 'Perfil'];
-  const ocultarAtras = pantallasSinAtras.includes(route.name);
+  const handleCartPress = () => {
+    // Navegar al tab del carrito
+    navigation.navigate('Carrito');
+  };
+
+  const handleSearchPress = () => {
+    // Navegar al tab de búsqueda
+    navigation.navigate('Buscar');
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        {/* Botón atrás */}
-        <View style={styles.sideContainer}>
-          {canGoBack && !ocultarAtras ? (
-            <Pressable onPress={() => navigation.goBack()} style={styles.iconButton}>
-              <Icon name="chevron-left" size={24} color={colors.primary} />
-            </Pressable>
-          ) : (
-            <View style={styles.placeholder} />
-          )}
-        </View>
-
         {/* Título */}
         <View style={styles.centerContainer}>
           <Text style={styles.title}>Llévatelo</Text>
@@ -33,19 +30,20 @@ const Header = () => {
         {/* Botones de buscar y carrito */}
         <View style={styles.sideContainer}>
           <Pressable
-            onPress={() => navigation.navigate('Buscar')}
+            onPress={handleSearchPress}
             style={styles.iconButton}
           >
             <Icon name="search" size={20} color={colors.primary} />
           </Pressable>
+
           <Pressable
-            onPress={() => navigation.navigate('CarritoStack')}
+            onPress={handleCartPress}
             style={styles.iconButton}
           >
             <Icon name="shopping-cart" size={20} color={colors.primary} />
-            {true && (
+            {itemCount > 0 && (
               <View style={styles.badge}>
-                <Text style={styles.badgeText}>3</Text>
+                <Text style={styles.badgeText}>{itemCount}</Text>
               </View>
             )}
           </Pressable>
@@ -65,53 +63,41 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: 58,
-    paddingHorizontal: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-    shadowColor: colors.cardShadow,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  sideContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: 80,
-    justifyContent: 'flex-start',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
   centerContainer: {
     flex: 1,
     alignItems: 'center',
   },
-  iconButton: {
-    marginHorizontal: 6,
-    padding: 6,
-  },
   title: {
     fontSize: 20,
-    color: colors.textPrimary,
-    fontFamily: 'Raleway-SemiBold',
+    fontWeight: 'bold',
+    color: colors.primary,
   },
-  placeholder: {
-    width: 32,
+  sideContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  iconButton: {
+    marginLeft: 16,
+    position: 'relative',
   },
   badge: {
     position: 'absolute',
-    top: 2,
-    right: 0,
+    top: -8,
+    right: -8,
     backgroundColor: colors.error,
-    borderRadius: 8,
-    paddingHorizontal: 5,
-    paddingVertical: 1,
-    minWidth: 16,
-    alignItems: 'center',
+    borderRadius: 10,
+    width: 20,
+    height: 20,
     justifyContent: 'center',
+    alignItems: 'center',
+    minWidth: 20,
   },
   badgeText: {
     color: colors.textWhite,
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: 'bold',
   },
 });

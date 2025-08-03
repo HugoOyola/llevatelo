@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { colors } from '../../styles/colors';
+import { useCart } from '../../hooks/useCart';
+import { formatearPrecio } from '../../utils/precio';
 
 const paymentMethods = [
   {
@@ -34,18 +36,39 @@ const paymentMethods = [
 ];
 
 export default function CheckoutPaymentScreen({ navigation }) {
+  const { total, itemCount, clearAllCart } = useCart();
   const [selectedMethod, setSelectedMethod] = useState('credit');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [notes, setNotes] = useState('');
 
-  const handleContinue = () => {
-    // Aquí podrías validar el formulario antes de navegar
+  const handleConfirmOrder = () => {
+    // Aquí podrías validar el formulario antes de procesar
+    if (!phone || !email) {
+      alert('Por favor completa todos los campos requeridos');
+      return;
+    }
+
+    // Procesar pago (aquí iría la lógica de pago real)
+    clearAllCart(); // Limpiar carrito después del pago exitoso
     navigation.navigate('PedidoConfirmado');
   };
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
+      {/* Resumen del pedido */}
+      <View style={styles.summaryContainer}>
+        <Text style={styles.sectionTitle}>Resumen del Pedido</Text>
+        <View style={styles.summaryRow}>
+          <Text style={styles.summaryText}>Total de productos:</Text>
+          <Text style={styles.summaryValue}>{itemCount} {itemCount === 1 ? 'producto' : 'productos'}</Text>
+        </View>
+        <View style={styles.summaryRow}>
+          <Text style={styles.summaryTotalLabel}>Total a pagar:</Text>
+          <Text style={styles.summaryTotalValue}>{formatearPrecio(total)}</Text>
+        </View>
+      </View>
+
       <Text style={styles.sectionTitle}>Método de Pago</Text>
 
       {paymentMethods.map((method) => (
@@ -74,22 +97,24 @@ export default function CheckoutPaymentScreen({ navigation }) {
       <View style={styles.inputGroup}>
         <Icon name="phone" size={18} color={colors.textSecondary} style={styles.inputIcon} />
         <TextInput
-          placeholder="Teléfono"
+          placeholder="Teléfono *"
           value={phone}
           onChangeText={setPhone}
           keyboardType="phone-pad"
           style={styles.input}
+          placeholderTextColor={colors.textSecondary}
         />
       </View>
 
       <View style={styles.inputGroup}>
         <Icon name="mail" size={18} color={colors.textSecondary} style={styles.inputIcon} />
         <TextInput
-          placeholder="Correo electrónico"
+          placeholder="Correo electrónico *"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
           style={styles.input}
+          placeholderTextColor={colors.textSecondary}
         />
       </View>
 
@@ -101,69 +126,121 @@ export default function CheckoutPaymentScreen({ navigation }) {
           style={[styles.inputIcon, { marginTop: 4 }]}
         />
         <TextInput
-          placeholder="Notas (opcional)"
+          placeholder="Notas adicionales (opcional)"
           value={notes}
           onChangeText={setNotes}
-          style={[styles.input, { height: '100%' }]}
+          style={[styles.input, { height: '100%', textAlignVertical: 'top' }]}
           multiline
+          placeholderTextColor={colors.textSecondary}
         />
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={handleContinue}>
-        <Text style={styles.buttonText}>Confirmar Pedido</Text>
+      <TouchableOpacity style={styles.button} onPress={handleConfirmOrder}>
+        <Text style={styles.buttonText}>Confirmar Pedido - {formatearPrecio(total)}</Text>
       </TouchableOpacity>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, backgroundColor: colors.surface },
+  container: {
+    flex: 1,
+    backgroundColor: colors.surface,
+    padding: 16,
+  },
+  summaryContainer: {
+    backgroundColor: colors.background,
+    padding: 16,
+    borderRadius: 8,
+    marginBottom: 24,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  summaryRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  summaryText: {
+    fontSize: 14,
+    color: colors.textSecondary,
+  },
+  summaryValue: {
+    fontSize: 14,
+    color: colors.textPrimary,
+    fontWeight: '500',
+  },
+  summaryTotalLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: colors.textPrimary,
+  },
+  summaryTotalValue: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.primary,
+  },
   sectionTitle: {
     fontSize: 16,
     fontWeight: '600',
-    marginTop: 24,
-    marginBottom: 8,
+    marginBottom: 12,
     color: colors.textPrimary,
   },
   card: {
+    backgroundColor: colors.background,
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: colors.border,
-    borderRadius: 10,
-    padding: 14,
-    marginBottom: 12,
-    backgroundColor: colors.background,
+    marginBottom: 8,
   },
   cardSelected: {
     borderColor: colors.primary,
-    backgroundColor: '#f5faff',
+    backgroundColor: colors.primaryLight,
   },
-  cardContent: { flexDirection: 'row', alignItems: 'center' },
-  cardIcon: { marginRight: 10 },
-  cardTitle: { fontWeight: '600', fontSize: 15, color: colors.textPrimary },
-  cardSubtitle: { fontSize: 12, color: colors.textSecondary },
+  cardContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
+  },
+  cardIcon: {
+    marginRight: 12,
+  },
+  cardTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: colors.textPrimary,
+  },
+  cardSubtitle: {
+    fontSize: 12,
+    color: colors.textSecondary,
+    marginTop: 2,
+  },
   inputGroup: {
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: colors.background,
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: colors.border,
-    borderRadius: 8,
     paddingHorizontal: 12,
-    marginBottom: 14,
-    backgroundColor: colors.background,
+    paddingVertical: 12,
+    marginBottom: 12,
   },
-  inputIcon: { marginRight: 10 },
+  inputIcon: {
+    marginRight: 10,
+  },
   input: {
     flex: 1,
-    color: colors.textPrimary,
     fontSize: 14,
-    height: 40,
+    color: colors.textPrimary,
   },
   button: {
-    marginTop: 24,
     backgroundColor: colors.primary,
-    paddingVertical: 14,
-    borderRadius: 8,
+    paddingVertical: 16,
+    borderRadius: 10,
     alignItems: 'center',
+    marginTop: 20,
   },
   buttonText: {
     color: colors.textWhite,

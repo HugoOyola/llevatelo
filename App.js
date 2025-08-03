@@ -3,9 +3,12 @@ import { StyleSheet } from 'react-native';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import RootStackNavigator from './src/navigation/RootStackNavigator';
 import { NavigationContainer } from '@react-navigation/native';
 import { colors } from './src/styles/colors';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { store } from './src/store/store';
+import RootStackNavigator from './src/navigation/RootStackNavigator';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -26,11 +29,13 @@ export default function App() {
   }
 
   return (
-    <>
-      <StatusBar style="light" />
-      <NavigationContainer>
-        <RootStackNavigator />
-      </NavigationContainer>
-    </>
+    <Provider store={store}>
+      <>
+        <StatusBar style="light" />
+        <NavigationContainer>
+          <RootStackNavigator />
+        </NavigationContainer>
+      </>
+    </Provider>
   );
 }

@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import { colors } from '../../styles/colors';
 import productos from '../../data/products.json';
 import ProductCard from '../../components/cards/ProductCard';
+import { useCart } from '../../hooks/useCart';
 
 const BUSQUEDAS_POPULARES = [
   'PS5',
@@ -23,6 +24,7 @@ const BUSQUEDAS_POPULARES = [
 ];
 
 export default function SearchScreen({ navigation }) {
+  const { addProductToCart } = useCart();
   const [query, setQuery] = useState('');
   const [recientes, setRecientes] = useState([
     'PlayStation 5',
@@ -60,8 +62,12 @@ export default function SearchScreen({ navigation }) {
     </TouchableOpacity>
   );
 
-  const renderProduct = ({ item }) => (
-    <ProductCard product={item} onPress={() => handleProductPress(item)} />
+  const renderResultItem = ({ item }) => (
+    <ProductCard
+      product={item}
+      onPress={handleProductPress}
+      // ProductCard ya maneja el carrito internamente
+    />
   );
 
   return (
@@ -119,7 +125,7 @@ export default function SearchScreen({ navigation }) {
             <FlatList
               data={resultados}
               keyExtractor={(item) => item.id.toString()}
-              renderItem={renderProduct}
+              renderItem={renderResultItem}
               numColumns={2}
               contentContainerStyle={styles.resultados}
             />

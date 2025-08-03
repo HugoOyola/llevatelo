@@ -1,25 +1,38 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import React from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Badge from '../common/Badge';
 import { colors } from '../../styles/colors';
+import { useCart } from '../../hooks/useCart';
+import { calcularPrecioFinal } from '../../utils/precio';
 
-const { width } = Dimensions.get('window');
-const CARD_WIDTH = (width - 36) / 2;
+export default function ProductCard({ product, onPress, showDiscount = false }) {
+  const { addProductToCart, isProductInCart, getProductQuantityInCart } = useCart();
 
-export default function ProductCard({ product, onPress, cardWidth = CARD_WIDTH, showDiscount = false }) {
   const isOutOfStock = product.stock === 0;
   const hasDiscount = product.discount > 0;
-  const finalPrice = product.price - (product.price * product.discount / 100);
+  const finalPrice = calcularPrecioFinal(product.price, product.discount);
+  const isInCart = isProductInCart(product.id);
+  const quantityInCart = getProductQuantityInCart(product.id);
 
   const badgeColors = {
     new: colors.info,
+    nuevo: colors.info,
     ofert: colors.warning,
+    oferta: colors.warning,
     popular: colors.accent,
     classic: colors.secondaryLight,
   };
 
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
+    if (!isOutOfStock) {
+      addProductToCart(product, 1);
+    }
+  };
+
   return (
     <TouchableOpacity
-      style={[styles.card, { width: cardWidth }]}
+      style={styles.card}
       onPress={() => onPress(product)}
       disabled={isOutOfStock}
     >
@@ -34,34 +47,60 @@ export default function ProductCard({ product, onPress, cardWidth = CARD_WIDTH, 
             textColor={colors.textWhite}
           />
         ))}
-        {isOutOfStock && <Badge label="Sin Stock" color={colors.error} textColor="#fff" />}
+        {hasDiscount && showDiscount && (
+          <Badge
+            label={`-${product.discount}%`}
+            color={colors.error}
+            textColor="#fff"
+          />
+        )}
+        {isOutOfStock && (
+          <Badge
+            label="Sin Stock"
+            color={colors.error}
+            textColor="#fff"
+          />
+        )}
       </View>
 
       <View style={styles.infoContainer}>
         <Text style={styles.brand}>{product.brand}</Text>
-        <Text style={styles.title} numberOfLines={1}>{product.title}</Text>
+        <Text style={styles.title} numberOfLines={2}>{product.title}</Text>
 
         {hasDiscount && (
           <View style={styles.priceRow}>
-            <Text style={styles.oldPrice}>S/ {product.price.toLocaleString()}</Text>
+            <Text style={styles.oldPrice}>S/ {product.price.toFixed(2)}</Text>
             {showDiscount && <Text style={styles.discount}>-{product.discount}%</Text>}
           </View>
         )}
 
-        <Text style={styles.price}>S/ {finalPrice.toLocaleString()}</Text>
+        <Text style={styles.price}>S/ {finalPrice}</Text>
       </View>
 
-      <View style={[styles.button, isOutOfStock && styles.buttonDisabled]}>
-        <Text style={[styles.buttonText, isOutOfStock && styles.buttonTextDisabled]}>
-          {isOutOfStock ? 'Sin Stock' : 'Agregar'}
+      <TouchableOpacity
+        style={[
+          styles.button,
+          isOutOfStock && styles.buttonDisabled,
+          isInCart && styles.buttonInCart
+        ]}
+        onPress={handleAddToCart}
+        disabled={isOutOfStock}
+      >
+        <Text style={[
+          styles.buttonText,
+          isOutOfStock && styles.buttonTextDisabled,
+          isInCart && styles.buttonTextInCart
+        ]}>
+          {isOutOfStock ? 'Sin Stock' : isInCart ? `En carrito (${quantityInCart})` : 'Agregar'}
         </Text>
-      </View>
+      </TouchableOpacity>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
+    width: '47%',
     marginBottom: 16,
     padding: 10,
     backgroundColor: colors.background,
@@ -86,25 +125,27 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   brand: {
-    fontSize: 11,
-    color: colors.textMuted,
+    fontSize: 12,
+    color: colors.textSecondary,
+    marginBottom: 2,
   },
   title: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '600',
     color: colors.textPrimary,
     marginBottom: 4,
+    lineHeight: 18,
   },
   priceRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 4,
+    gap: 6,
+    marginBottom: 2,
   },
   oldPrice: {
     fontSize: 12,
-    color: colors.textMuted,
+    color: colors.textSecondary,
     textDecorationLine: 'line-through',
-    marginRight: 6,
   },
   discount: {
     fontSize: 12,
@@ -112,27 +153,32 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   price: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: 'bold',
     color: colors.primary,
-    marginTop: 2,
+    marginBottom: 8,
   },
   button: {
-    marginTop: 12,
     backgroundColor: colors.primary,
+    paddingVertical: 8,
     borderRadius: 6,
-    paddingVertical: 6,
     alignItems: 'center',
   },
   buttonDisabled: {
     backgroundColor: colors.border,
   },
+  buttonInCart: {
+    backgroundColor: colors.success,
+  },
   buttonText: {
     color: colors.textWhite,
-    fontSize: 13,
-    fontWeight: '600',
+    fontSize: 12,
+    fontWeight: 'bold',
   },
   buttonTextDisabled: {
-    color: colors.textMuted,
+    color: colors.textSecondary,
+  },
+  buttonTextInCart: {
+    color: colors.textWhite,
   },
 });

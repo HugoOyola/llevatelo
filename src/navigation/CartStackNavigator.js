@@ -10,10 +10,26 @@ const Stack = createNativeStackNavigator();
 export default function CartStackNavigator() {
   return (
     <Stack.Navigator screenOptions={{ header: () => <Header /> }}>
-      <Stack.Screen name="Carrito" component={CartScreen} />
-      <Stack.Screen name="ResumenPedido" component={CheckoutSummaryScreen} />
-      <Stack.Screen name="Pago" component={CheckoutPaymentScreen} />
-      <Stack.Screen name="PedidoConfirmado" component={PedidoConfirmadoScreen} />
+      <Stack.Screen
+        name="Carrito"
+        component={CartScreen}
+        options={{ title: 'Mi Carrito' }}
+      />
+      <Stack.Screen
+        name="ResumenPedido"
+        component={CheckoutSummaryScreen}
+        options={{ title: 'Resumen del Pedido' }}
+      />
+      <Stack.Screen
+        name="Pago"
+        component={CheckoutPaymentScreen}
+        options={{ title: 'Método de Pago' }}
+      />
+      <Stack.Screen
+        name="PedidoConfirmado"
+        component={PedidoConfirmadoScreen}
+        options={{ title: 'Pedido Confirmado', headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }

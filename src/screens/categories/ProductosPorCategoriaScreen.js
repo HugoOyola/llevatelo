@@ -1,15 +1,16 @@
-import React from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import rawProductos from '../../data/products.json';
 import { normalizarProductos } from '../../utils/normalizarProductos';
 import { formatearNombreCategoria, compararCategoria } from '../../utils/categorias';
 import { colors } from '../../styles/colors';
+import { useCart } from '../../hooks/useCart';
 
 const productos = normalizarProductos(rawProductos);
 
 export default function ProductosPorCategoriaScreen({ route, navigation }) {
   const { categoria } = route.params;
+  const { addProductToCart } = useCart();
 
   const productosFiltrados = productos.filter(
     (p) => compararCategoria(p.category, categoria) && p.stock > 0
@@ -20,7 +21,7 @@ export default function ProductosPorCategoriaScreen({ route, navigation }) {
   };
 
   const handleAddToCart = (producto) => {
-    console.log(`Agregado ${producto.title} al carrito`);
+    addProductToCart(producto, 1);
   };
 
   const renderItem = ({ item }) => {
