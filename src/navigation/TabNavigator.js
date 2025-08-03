@@ -5,9 +5,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MainStackNavigator from "./MainStackNavigator";
 import CategoriesStackNavigator from "./CategoriesStackNavigator";
 import SearchStackNavigator from "./SearchStackNavigator";
-import FavoritesStackNavigator from "./FavoritesStackNavigator";
 import ProfileStackNavigator from "./ProfileStackNavigator";
-import CartStackNavigator from "./CartStackNavigator"; // Asegúrate de importar esto
+import CartStackNavigator from "./CartStackNavigator";
 import { useCart } from '../hooks/useCart';
 
 const Tab = createBottomTabNavigator();
@@ -56,13 +55,6 @@ export default function TabNavigator() {
         component={SearchStackNavigator}
         options={{
           tabBarIcon: ({ color, size }) => <Icon name="search-outline" size={size} color={color} />,
-        }}
-      />
-      <Tab.Screen
-        name="Favoritos"
-        component={FavoritesStackNavigator}
-        options={{
-          tabBarIcon: ({ color, size }) => <Icon name="heart-outline" size={size} color={color} />,
         }}
       />
       <Tab.Screen
