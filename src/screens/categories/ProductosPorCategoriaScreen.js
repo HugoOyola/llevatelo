@@ -29,26 +29,45 @@ export default function ProductosPorCategoriaScreen({ route, navigation }) {
 
     return (
       <TouchableOpacity style={styles.card} onPress={() => handleProductPress(item)}>
-        <Image source={{ uri: item.mainImage }} style={styles.image} />
-
-        <View style={styles.badgesContainer}>
-          {tieneDescuento && (
-            <View style={[styles.badge, { backgroundColor: colors.error }]}>
-              <Text style={styles.badgeText}>Oferta</Text>
-            </View>
-          )}
-          {esNuevo && (
-            <View style={[styles.badge, { backgroundColor: colors.success }]}>
-              <Text style={styles.badgeText}>Nuevo</Text>
-            </View>
-          )}
+        {/* Contenedor de la imagen con badges */}
+        <View style={styles.imageContainer}>
+          <Image source={{ uri: item.mainImage }} style={styles.image} />
+          <View style={styles.badgesContainer}>
+            {tieneDescuento && (
+              <View style={[styles.badge, { backgroundColor: colors.error }]}>
+                <Text style={styles.badgeText}>Oferta</Text>
+              </View>
+            )}
+            {esNuevo && (
+              <View style={[styles.badge, { backgroundColor: colors.success }]}>
+                <Text style={styles.badgeText}>Nuevo</Text>
+              </View>
+            )}
+          </View>
         </View>
 
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.price}>S/. {precioFinal}</Text>
-        <Text style={styles.stock}>Stock: {item.stock}</Text>
+        {/* Contenedor del contenido que crece */}
+        <View style={styles.contentContainer}>
+          <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
 
-        <TouchableOpacity style={styles.cartButton} onPress={() => handleAddToCart(item)}>
+          <View style={styles.priceContainer}>
+            {tieneDescuento && (
+              <Text style={styles.originalPrice}>S/. {item.price.toFixed(2)}</Text>
+            )}
+            <Text style={styles.price}>S/. {precioFinal}</Text>
+          </View>
+
+          <Text style={styles.stock}>Stock: {item.stock}</Text>
+        </View>
+
+        {/* Botón siempre en la parte inferior */}
+        <TouchableOpacity
+          style={styles.cartButton}
+          onPress={(e) => {
+            e.stopPropagation();
+            handleAddToCart(item);
+          }}
+        >
           <Icon name="shopping-cart" size={16} color={colors.textWhite} />
           <Text style={styles.cartButtonText}>Agregar</Text>
         </TouchableOpacity>
@@ -58,7 +77,7 @@ export default function ProductosPorCategoriaScreen({ route, navigation }) {
 
   if (isLoading) {
     return (
-      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+      <View style={[styles.container, styles.loadingContainer]}>
         <Text style={styles.header}>Cargando productos...</Text>
       </View>
     );
@@ -92,6 +111,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 20,
   },
+  loadingContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   header: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -109,60 +132,89 @@ const styles = StyleSheet.create({
     width: CARD_WIDTH,
     backgroundColor: colors.background,
     borderRadius: 12,
-    padding: 10,
-    alignItems: 'center',
-    elevation: 2,
+    padding: 12,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    // Flexbox para organizar el contenido
+    minHeight: 280,
+    justifyContent: 'space-between',
+  },
+  imageContainer: {
+    position: 'relative',
+    marginBottom: 8,
   },
   image: {
     width: '100%',
-    height: 100,
+    height: 120,
     borderRadius: 8,
-    resizeMode: 'cover',
-    marginBottom: 8,
+    resizeMode: 'contain',
   },
   badgesContainer: {
     flexDirection: 'row',
-    gap: 6,
+    gap: 4,
     position: 'absolute',
-    top: 8,
-    left: 8,
+    top: 6,
+    left: 6,
   },
   badge: {
     paddingHorizontal: 6,
-    paddingVertical: 2,
+    paddingVertical: 3,
     borderRadius: 4,
+    elevation: 1,
   },
   badgeText: {
     color: colors.textWhite,
     fontSize: 10,
     fontWeight: 'bold',
   },
+  contentContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    marginBottom: 8,
+  },
   title: {
     fontSize: 14,
     fontWeight: '600',
     color: colors.textPrimary,
-    textAlign: 'center',
-    marginTop: 4,
+    textAlign: 'left',
+    marginBottom: 8,
+    lineHeight: 18,
+  },
+  priceContainer: {
+    marginBottom: 4,
+  },
+  originalPrice: {
+    fontSize: 12,
+    color: colors.textSecondary,
+    textDecorationLine: 'line-through',
+    marginBottom: 2,
   },
   price: {
-    fontSize: 14,
+    fontSize: 16,
+    fontWeight: 'bold',
     color: colors.primary,
-    marginTop: 2,
+    marginBottom: 4,
   },
   stock: {
     fontSize: 12,
     color: colors.textSecondary,
-    marginBottom: 6,
   },
   cartButton: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: colors.primary,
-    borderRadius: 6,
-    paddingVertical: 6,
-    paddingHorizontal: 10,
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
     gap: 6,
-    marginTop: 4,
+    marginTop: 'auto',
   },
   cartButtonText: {
     color: colors.textWhite,

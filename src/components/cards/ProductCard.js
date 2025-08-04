@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 import Badge from '../common/Badge';
 import { colors } from '../../styles/colors';
 import { useCart } from '../../hooks/useCart';
@@ -33,6 +34,40 @@ export default function ProductCard({
     if (!isOutOfStock) {
       addProductToCart(product, 1);
     }
+  };
+
+  // Función para renderizar el contenido del botón
+  const renderButtonContent = () => {
+    if (isOutOfStock) {
+      return (
+        <>
+          <Icon name="x-circle" size={14} color={colors.textSecondary} />
+          <Text style={[styles.buttonText, styles.buttonTextDisabled]}>
+            Sin Stock
+          </Text>
+        </>
+      );
+    }
+
+    if (isInCart) {
+      return (
+        <>
+          <Icon name="check-circle" size={14} color={colors.textWhite} />
+          <Text style={[styles.buttonText, styles.buttonTextInCart]}>
+            En carrito ({quantityInCart})
+          </Text>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <Icon name="shopping-cart" size={14} color={colors.textWhite} />
+        <Text style={styles.buttonText}>
+          Agregar
+        </Text>
+      </>
+    );
   };
 
   return (
@@ -108,13 +143,7 @@ export default function ProductCard({
         onPress={handleAddToCart}
         disabled={isOutOfStock}
       >
-        <Text style={[
-          styles.buttonText,
-          isOutOfStock && styles.buttonTextDisabled,
-          isInCart && styles.buttonTextInCart
-        ]}>
-          {isOutOfStock ? 'Sin Stock' : isInCart ? `En carrito (${quantityInCart})` : 'Agregar'}
-        </Text>
+        {renderButtonContent()}
       </TouchableOpacity>
     </TouchableOpacity>
   );
@@ -215,8 +244,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderRadius: 8,
     alignItems: 'center',
-    minHeight: 36,
     justifyContent: 'center',
+    minHeight: 36,
+    flexDirection: 'row',
+    gap: 6,
   },
   buttonDisabled: {
     backgroundColor: colors.border,
