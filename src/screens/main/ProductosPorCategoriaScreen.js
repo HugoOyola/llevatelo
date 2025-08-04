@@ -2,15 +2,26 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 import ProductCard from '../../components/cards/ProductCard';
 import { colors } from '../../styles/colors';
 import { useGetProductsQuery } from '../../services/shop/shopApi';
+import { compararCategoria, formatearNombreCategoria } from '../../utils/categorias';
 
 export default function ProductosPorCategoriaScreen({ route, navigation }) {
   const { categoria } = route.params;
 
   const { data: productos = [], isLoading } = useGetProductsQuery();
 
+  // Debug: Agregar esto temporalmente para ver qué está pasando
+  console.log('Categoria recibida:', categoria);
+  console.log('Categorías de productos:', productos.map(p => p.category));
+
   const productosFiltrados = productos.filter(
-    p => p.category.toLowerCase() === categoria.toLowerCase() && p.stock > 0
+    (p) => {
+      const resultado = compararCategoria(p.category, categoria) && p.stock > 0;
+      console.log(`Comparando "${p.category}" con "${categoria}":`, resultado);
+      return resultado;
+    }
   );
+
+  console.log('Productos filtrados:', productosFiltrados.length);
 
   const handleProductPress = (producto) => {
     navigation.navigate('DetalleProducto', { producto });
@@ -26,7 +37,7 @@ export default function ProductosPorCategoriaScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>{categoria}</Text>
+      <Text style={styles.titulo}>{formatearNombreCategoria(categoria)}</Text>
       <FlatList
         data={productosFiltrados}
         keyExtractor={(item) => item.id.toString()}

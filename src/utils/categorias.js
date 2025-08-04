@@ -6,7 +6,20 @@ export function normalizarCategoria(categoria) {
 }
 
 export function compararCategoria(catA, catB) {
-  return normalizarCategoria(catA) === normalizarCategoria(catB);
+  // Normalizar ambas categorías removiendo espacios, símbolos y convirtiendo a minúsculas
+  const normalizeForComparison = (str) => {
+    return str.toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/&/g, 'y')
+      .replace(/[^\w-]/g, '');
+  };
+
+  const normalizedA = normalizeForComparison(catA);
+  const normalizedB = normalizeForComparison(catB);
+
+  console.log(`Comparando: "${normalizedA}" === "${normalizedB}"`);
+
+  return normalizedA === normalizedB;
 }
 
 export function formatearNombreCategoria(slug) {
@@ -23,5 +36,5 @@ export function formatearNombreCategoria(slug) {
 }
 
 export function slugCategoria(nombre) {
-  return nombre.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-');
+  return nombre.toLowerCase().replace(/ & /g, '-y-').replace(/ /g, '-');
 }
