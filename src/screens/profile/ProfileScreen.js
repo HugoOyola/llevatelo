@@ -37,8 +37,8 @@ export default function ProfileScreen({ navigation }) {
             <Icon name="camera" size={16} color={colors.textWhite} />
           </TouchableOpacity>
         </View>
-        <Text style={styles.name}>Juan Pérez</Text>
-        <Text style={styles.email}>juan.perez@email.com</Text>
+        <Text style={styles.name}>Hugo Oyola Yarlaque</Text>
+        <Text style={styles.email}>hugo212h@gmail.com</Text>
         <Text style={styles.date}>Miembro desde enero de 2023</Text>
       </View>
 
