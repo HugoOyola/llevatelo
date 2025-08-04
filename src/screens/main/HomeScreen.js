@@ -4,13 +4,16 @@ import CategoryItem from '../../components/cards/CategoryItem';
 import ProductCard from '../../components/cards/ProductCard';
 import { colors } from '../../styles/colors';
 import { useGetCategoriesQuery, useGetProductsQuery } from '../../services/shop/shopApi';
+import { slugCategoria } from '../../utils/categorias';
 
 export default function HomeScreen({ navigation }) {
   const { data: categorias = [], isLoading: loadingCategories } = useGetCategoriesQuery();
   const { data: productos = [], isLoading: loadingProducts } = useGetProductsQuery();
 
   const handleCategoryPress = (categoria) => {
-    navigation.navigate('ProductosPorCategoria', { categoria: categoria.title });
+    // Convertir el título a slug antes de navegar
+    const slug = slugCategoria(categoria.title);
+    navigation.navigate('ProductosPorCategoria', { categoria: slug });
   };
 
   const handleProductPress = (producto) => {
