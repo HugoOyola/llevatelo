@@ -1,16 +1,14 @@
 import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import rawProductos from '../../data/products.json';
-import { normalizarProductos } from '../../utils/normalizarProductos';
 import { formatearNombreCategoria, compararCategoria } from '../../utils/categorias';
 import { colors } from '../../styles/colors';
 import { useCart } from '../../hooks/useCart';
-
-const productos = normalizarProductos(rawProductos);
+import { useGetProductsQuery } from '../../services/shop/shopApi';
 
 export default function ProductosPorCategoriaScreen({ route, navigation }) {
   const { categoria } = route.params;
   const { addProductToCart } = useCart();
+  const { data: productos = [], isLoading } = useGetProductsQuery();
 
   const productosFiltrados = productos.filter(
     (p) => compararCategoria(p.category, categoria) && p.stock > 0
@@ -57,6 +55,14 @@ export default function ProductosPorCategoriaScreen({ route, navigation }) {
       </TouchableOpacity>
     );
   };
+
+  if (isLoading) {
+    return (
+      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+        <Text style={styles.header}>Cargando productos...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>

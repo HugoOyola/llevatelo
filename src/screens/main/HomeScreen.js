@@ -3,10 +3,12 @@ import WelcomeBanner from '../../components/common/WelcomeBanner';
 import CategoryItem from '../../components/cards/CategoryItem';
 import ProductCard from '../../components/cards/ProductCard';
 import { colors } from '../../styles/colors';
-import categorias from '../../data/categories.json';
-import productos from '../../data/products.json';
+import { useGetCategoriesQuery, useGetProductsQuery } from '../../services/shop/shopApi';
 
 export default function HomeScreen({ navigation }) {
+  const { data: categorias = [], isLoading: loadingCategories } = useGetCategoriesQuery();
+  const { data: productos = [], isLoading: loadingProducts } = useGetProductsQuery();
+
   const handleCategoryPress = (categoria) => {
     navigation.navigate('ProductosPorCategoria', { categoria: categoria.title });
   };
@@ -19,18 +21,19 @@ export default function HomeScreen({ navigation }) {
     navigation.navigate('ProductosFiltrados', { filtro });
   };
 
-  const productosNuevos = [...productos]
+  // Filtrar productos solo si ya se cargaron
+  const productosNuevos = productos.length > 0 ? [...productos]
     .filter(p => p.stock > 0)
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-    .slice(0, 10);
+    .slice(0, 10) : [];
 
-  const productosConDescuento = productos
+  const productosConDescuento = productos.length > 0 ? productos
     .filter(p => p.stock > 0 && (p.discount > 0 || p.highlight === 'oferta'))
-    .slice(0, 8);
+    .slice(0, 8) : [];
 
-  const productosDestacados = productos
+  const productosDestacados = productos.length > 0 ? productos
     .filter(p => p.stock > 0 && p.isFeatured)
-    .slice(0, 6);
+    .slice(0, 6) : [];
 
   const TituloConVerTodo = ({ titulo, onPress }) => (
     <View style={styles.filaTitulo}>
@@ -40,6 +43,15 @@ export default function HomeScreen({ navigation }) {
       </TouchableOpacity>
     </View>
   );
+
+  // Mostrar loading si está cargando
+  if (loadingCategories || loadingProducts) {
+    return (
+      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+        <Text style={styles.seccionTitulo}>Cargando...</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.container}>

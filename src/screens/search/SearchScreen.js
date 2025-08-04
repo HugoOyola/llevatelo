@@ -10,9 +10,9 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { colors } from '../../styles/colors';
-import productos from '../../data/products.json';
 import ProductCard from '../../components/cards/ProductCard';
 import { useCart } from '../../hooks/useCart';
+import { useGetProductsQuery } from '../../services/shop/shopApi';
 
 const BUSQUEDAS_POPULARES = [
   'PS5',
@@ -25,6 +25,7 @@ const BUSQUEDAS_POPULARES = [
 
 export default function SearchScreen({ navigation }) {
   const { addProductToCart } = useCart();
+  const { data: productos = [], isLoading } = useGetProductsQuery();
   const [query, setQuery] = useState('');
   const [recientes, setRecientes] = useState([
     'PlayStation 5',
@@ -66,9 +67,16 @@ export default function SearchScreen({ navigation }) {
     <ProductCard
       product={item}
       onPress={handleProductPress}
-      // ProductCard ya maneja el carrito internamente
     />
   );
+
+  if (isLoading) {
+    return (
+      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+        <Text style={styles.sectionTitle}>Cargando productos...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -196,6 +204,5 @@ const styles = StyleSheet.create({
   },
   resultados: {
     gap: 16,
-    paddingBottom: 40,
   },
 });

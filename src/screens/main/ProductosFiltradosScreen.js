@@ -1,10 +1,11 @@
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import ProductCard from '../../components/cards/ProductCard';
 import { colors } from '../../styles/colors';
-import productos from '../../data/products.json';
+import { useGetProductsQuery } from '../../services/shop/shopApi';
 
 export default function ProductosFiltradosScreen({ route, navigation }) {
   const { filtro } = route.params;
+  const { data: productos = [], isLoading } = useGetProductsQuery();
 
   const handleProductPress = (producto) => {
     navigation.navigate('DetalleProducto', { producto });
@@ -12,16 +13,18 @@ export default function ProductosFiltradosScreen({ route, navigation }) {
 
   let productosFiltrados = [];
 
-  if (filtro === 'nuevo') {
-    productosFiltrados = [...productos]
-      .filter(p => p.stock > 0)
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  } else if (filtro === 'oferta') {
-    productosFiltrados = productos.filter(
-      p => p.stock > 0 && (p.discount > 0 || p.highlight === 'oferta')
-    );
-  } else if (filtro === 'destacados') {
-    productosFiltrados = productos.filter(p => p.stock > 0 && p.isFeatured);
+  if (productos.length > 0) {
+    if (filtro === 'nuevo') {
+      productosFiltrados = [...productos]
+        .filter(p => p.stock > 0)
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } else if (filtro === 'oferta') {
+      productosFiltrados = productos.filter(
+        p => p.stock > 0 && (p.discount > 0 || p.highlight === 'oferta')
+      );
+    } else if (filtro === 'destacados') {
+      productosFiltrados = productos.filter(p => p.stock > 0 && p.isFeatured);
+    }
   }
 
   const tituloPorFiltro = {
@@ -29,6 +32,14 @@ export default function ProductosFiltradosScreen({ route, navigation }) {
     oferta: 'Ofertas Especiales',
     destacados: 'Productos Destacados'
   };
+
+  if (isLoading) {
+    return (
+      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+        <Text style={styles.titulo}>Cargando productos...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>

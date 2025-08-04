@@ -1,8 +1,10 @@
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import categorias from '../../data/categories.json';
 import { colors } from '../../styles/colors';
+import { useGetCategoriesQuery } from '../../services/shop/shopApi';
 
 export default function CategoriesScreen({ navigation }) {
+  const { data: categorias = [], isLoading } = useGetCategoriesQuery();
+
   const handleCategoryPress = (categoria) => {
     navigation.navigate('ProductosPorCategoria', { categoria: categoria.slug });
   };
@@ -16,6 +18,14 @@ export default function CategoriesScreen({ navigation }) {
       <Text style={styles.title}>{item.title}</Text>
     </TouchableOpacity>
   );
+
+  if (isLoading) {
+    return (
+      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+        <Text style={styles.header}>Cargando categorías...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
