@@ -38,7 +38,7 @@ export default function HomeScreen({ navigation }) {
   const TituloConVerTodo = ({ titulo, onPress }) => (
     <View style={styles.filaTitulo}>
       <Text style={styles.seccionTitulo}>{titulo}</Text>
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity onPress={onPress} style={styles.verTodoButton}>
         <Text style={styles.verTodo}>Ver todo</Text>
       </TouchableOpacity>
     </View>
@@ -47,16 +47,17 @@ export default function HomeScreen({ navigation }) {
   // Mostrar loading si está cargando
   if (loadingCategories || loadingProducts) {
     return (
-      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
-        <Text style={styles.seccionTitulo}>Cargando...</Text>
+      <View style={[styles.container, styles.loadingContainer]}>
+        <Text style={styles.loadingText}>Cargando...</Text>
       </View>
     );
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <WelcomeBanner />
 
+      {/* Categorías */}
       <Text style={styles.seccionTitulo}>Categorías</Text>
       <FlatList
         data={categorias}
@@ -69,42 +70,80 @@ export default function HomeScreen({ navigation }) {
         )}
       />
 
-      <TituloConVerTodo titulo="Ofertas Especiales" onPress={() => handleVerTodo('oferta')} />
-      <FlatList
-        data={productosConDescuento}
-        keyExtractor={(item) => item.id.toString()}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.listaProductosHorizontal}
-        renderItem={({ item }) => (
-          <ProductCard product={item} onPress={handleProductPress} showDiscount />
-        )}
-      />
+      {/* Ofertas Especiales */}
+      {productosConDescuento.length > 0 && (
+        <>
+          <TituloConVerTodo
+            titulo="Ofertas Especiales"
+            onPress={() => handleVerTodo('oferta')}
+          />
+          <FlatList
+            data={productosConDescuento}
+            keyExtractor={(item) => item.id.toString()}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.listaProductosHorizontal}
+            renderItem={({ item }) => (
+              <ProductCard
+                product={item}
+                onPress={handleProductPress}
+                showDiscount
+                horizontal
+              />
+            )}
+          />
+        </>
+      )}
 
-      <TituloConVerTodo titulo="Lo Más Nuevo" onPress={() => handleVerTodo('nuevo')} />
-      <FlatList
-        data={productosNuevos}
-        keyExtractor={(item) => item.id.toString()}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.listaProductosHorizontal}
-        renderItem={({ item }) => (
-          <ProductCard product={item} onPress={handleProductPress} />
-        )}
-      />
+      {/* Lo Más Nuevo */}
+      {productosNuevos.length > 0 && (
+        <>
+          <TituloConVerTodo
+            titulo="Lo Más Nuevo"
+            onPress={() => handleVerTodo('nuevo')}
+          />
+          <FlatList
+            data={productosNuevos}
+            keyExtractor={(item) => item.id.toString()}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.listaProductosHorizontal}
+            renderItem={({ item }) => (
+              <ProductCard
+                product={item}
+                onPress={handleProductPress}
+                horizontal
+              />
+            )}
+          />
+        </>
+      )}
 
-      <TituloConVerTodo titulo="Productos Destacados" onPress={() => handleVerTodo('destacados')} />
-      <FlatList
-        data={productosDestacados}
-        keyExtractor={(item) => item.id.toString()}
-        numColumns={2}
-        scrollEnabled={false}
-        columnWrapperStyle={{ justifyContent: 'space-between' }}
-        contentContainerStyle={styles.listaProductos}
-        renderItem={({ item }) => (
-          <ProductCard product={item} onPress={handleProductPress} />
-        )}
-      />
+      {/* Productos Destacados */}
+      {productosDestacados.length > 0 && (
+        <>
+          <TituloConVerTodo
+            titulo="Productos Destacados"
+            onPress={() => handleVerTodo('destacados')}
+          />
+          <FlatList
+            data={productosDestacados}
+            keyExtractor={(item) => item.id.toString()}
+            numColumns={2}
+            scrollEnabled={false}
+            columnWrapperStyle={styles.columnWrapper}
+            contentContainerStyle={styles.listaProductos}
+            renderItem={({ item }) => (
+              <ProductCard
+                product={item}
+                onPress={handleProductPress}
+              />
+            )}
+          />
+        </>
+      )}
+
+      <View style={styles.bottomSpacing} />
     </ScrollView>
   );
 }
@@ -113,20 +152,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.surface,
-    paddingHorizontal: 12,
-    paddingTop: 16,
+    paddingHorizontal: 16,
+  },
+  loadingContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    fontSize: 16,
+    color: colors.textSecondary,
   },
   filaTitulo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 10,
+    marginTop: 24,
+    marginBottom: 16,
   },
   seccionTitulo: {
-    fontSize: 18,
-    marginBottom: 8,
+    fontSize: 20,
     fontWeight: 'bold',
     color: colors.textPrimary,
+    marginBottom: 12,
+    marginTop: 20,
+  },
+  verTodoButton: {
+    paddingVertical: 4,
+    paddingHorizontal: 8,
   },
   verTodo: {
     fontSize: 14,
@@ -134,15 +186,23 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   listaCategorias: {
-    gap: 12,
-    paddingBottom: 16,
+    paddingLeft: 4,
+    paddingRight: 16,
+    paddingBottom: 8,
   },
   listaProductos: {
-    gap: 16,
-    paddingBottom: 20,
+    paddingBottom: 16,
   },
   listaProductosHorizontal: {
-    gap: 12,
-    paddingBottom: 16,
+    paddingLeft: 4,
+    paddingRight: 16,
+    paddingBottom: 8,
+  },
+  columnWrapper: {
+    justifyContent: 'space-between',
+    paddingHorizontal: 4,
+  },
+  bottomSpacing: {
+    height: 32,
   },
 });

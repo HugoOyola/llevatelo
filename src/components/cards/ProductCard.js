@@ -5,7 +5,12 @@ import { colors } from '../../styles/colors';
 import { useCart } from '../../hooks/useCart';
 import { calcularPrecioFinal } from '../../utils/precio';
 
-export default function ProductCard({ product, onPress, showDiscount = false }) {
+export default function ProductCard({
+  product,
+  onPress,
+  showDiscount = false,
+  horizontal = false
+}) {
   const { addProductToCart, isProductInCart, getProductQuantityInCart } = useCart();
 
   const isOutOfStock = product.stock === 0;
@@ -32,11 +37,20 @@ export default function ProductCard({ product, onPress, showDiscount = false }) 
 
   return (
     <TouchableOpacity
-      style={styles.card}
+      style={[
+        styles.card,
+        horizontal ? styles.cardHorizontal : styles.cardGrid
+      ]}
       onPress={() => onPress(product)}
       disabled={isOutOfStock}
     >
-      <Image source={{ uri: product.mainImage }} style={styles.image} />
+      <Image
+        source={{ uri: product.mainImage }}
+        style={[
+          styles.image,
+          horizontal ? styles.imageHorizontal : styles.imageGrid
+        ]}
+      />
 
       <View style={styles.badgeRow}>
         {product.tags?.map(tag => (
@@ -65,7 +79,15 @@ export default function ProductCard({ product, onPress, showDiscount = false }) 
 
       <View style={styles.infoContainer}>
         <Text style={styles.brand}>{product.brand}</Text>
-        <Text style={styles.title} numberOfLines={2}>{product.title}</Text>
+        <Text
+          style={[
+            styles.title,
+            horizontal ? styles.titleHorizontal : styles.titleGrid
+          ]}
+          numberOfLines={horizontal ? 1 : 2}
+        >
+          {product.title}
+        </Text>
 
         {hasDiscount && (
           <View style={styles.priceRow}>
@@ -100,47 +122,76 @@ export default function ProductCard({ product, onPress, showDiscount = false }) 
 
 const styles = StyleSheet.create({
   card: {
-    width: '47%',
     marginBottom: 16,
-    padding: 10,
+    padding: 12,
     backgroundColor: colors.background,
-    borderRadius: 10,
-    elevation: 2,
-    minHeight: 280,
+    borderRadius: 12,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
     justifyContent: 'space-between',
+  },
+  cardGrid: {
+    width: '47%',
+    minHeight: 280,
+  },
+  cardHorizontal: {
+    width: 160,
+    minHeight: 240,
+    marginRight: 12,
   },
   image: {
     width: '100%',
-    height: 120,
     resizeMode: 'contain',
     marginBottom: 8,
+    borderRadius: 8,
+  },
+  imageGrid: {
+    height: 120,
+  },
+  imageHorizontal: {
+    height: 100,
   },
   badgeRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 4,
-    marginBottom: 6,
+    marginBottom: 8,
+    minHeight: 20,
   },
   infoContainer: {
     flexGrow: 1,
+    marginBottom: 8,
   },
   brand: {
-    fontSize: 12,
+    fontSize: 11,
     color: colors.textSecondary,
     marginBottom: 2,
+    textTransform: 'uppercase',
+    fontWeight: '500',
   },
   title: {
-    fontSize: 14,
     fontWeight: '600',
     color: colors.textPrimary,
-    marginBottom: 4,
+    marginBottom: 6,
     lineHeight: 18,
+  },
+  titleGrid: {
+    fontSize: 14,
+  },
+  titleHorizontal: {
+    fontSize: 13,
   },
   priceRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    marginBottom: 2,
+    marginBottom: 4,
   },
   oldPrice: {
     fontSize: 12,
@@ -148,7 +199,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'line-through',
   },
   discount: {
-    fontSize: 12,
+    fontSize: 11,
     color: colors.error,
     fontWeight: 'bold',
   },
@@ -160,9 +211,12 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: colors.primary,
-    paddingVertical: 8,
-    borderRadius: 6,
+    paddingVertical: 10,
+    paddingHorizontal: 8,
+    borderRadius: 8,
     alignItems: 'center',
+    minHeight: 36,
+    justifyContent: 'center',
   },
   buttonDisabled: {
     backgroundColor: colors.border,
@@ -174,6 +228,7 @@ const styles = StyleSheet.create({
     color: colors.textWhite,
     fontSize: 12,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   buttonTextDisabled: {
     color: colors.textSecondary,
