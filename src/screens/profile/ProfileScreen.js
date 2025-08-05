@@ -3,8 +3,14 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { colors } from '../../styles/colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearUser } from '../../features/user/userSlice';
 
 export default function ProfileScreen({ navigation }) {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user.value);
+
   const handleLogout = () => {
     Alert.alert(
       'Cerrar sesión',
@@ -14,11 +20,16 @@ export default function ProfileScreen({ navigation }) {
         {
           text: 'Cerrar sesión',
           style: 'destructive',
-          onPress: () => {
-            navigation.reset({
-              index: 0,
-              routes: [{ name: 'Inicio' }],
-            });
+          onPress: async () => {
+            try {
+              // Limpiar AsyncStorage
+              await AsyncStorage.removeItem('userData');
+              // Limpiar Redux store
+              dispatch(clearUser());
+              // El RootStackNavigator redirigirá automáticamente
+            } catch (error) {
+              console.log('Error during logout:', error);
+            }
           },
         },
       ]
@@ -37,8 +48,8 @@ export default function ProfileScreen({ navigation }) {
             <Icon name="camera" size={16} color={colors.textWhite} />
           </TouchableOpacity>
         </View>
-        <Text style={styles.name}>Hugo Oyola Yarlaque</Text>
-        <Text style={styles.email}>hugo212h@gmail.com</Text>
+        <Text style={styles.name}>{user?.name || 'Usuario'}</Text>
+        <Text style={styles.email}>{user?.email || 'email@ejemplo.com'}</Text>
         <Text style={styles.date}>Miembro desde enero de 2023</Text>
       </View>
 

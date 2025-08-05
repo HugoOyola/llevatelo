@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   View,
   Image,
@@ -8,19 +8,25 @@ import {
   TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  Alert,
+  ActivityIndicator
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../../styles/colors';
 import { typography } from '../../styles/typography';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../features/user/userSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen({ navigation }) {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -29,10 +35,75 @@ export default function LoginScreen({ navigation }) {
     }));
   };
 
-  const handleLogin = () => {
-    // Aquí iría la lógica de login
-    console.log('Iniciando sesión:', formData);
-    // navigation.navigate('Home'); // Después del login exitoso
+  const validateCredentials = async (email, password) => {
+    // Simulamos una validación de credenciales
+    // En una app real, esto sería una llamada a tu API
+    const validUsers = [
+      { id: 1, email: 'test@test.com', password: '123456', name: 'Usuario Test' },
+      { id: 2, email: 'user@gmail.com', password: 'password', name: 'Usuario Demo' },
+      { id: 3, email: 'admin@llevatelo.com', password: 'admin123', name: 'Administrador' }
+    ];
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const user = validUsers.find(u => u.email === email && u.password === password);
+        resolve(user || null);
+      }, 1500); // Simulamos delay de red
+    });
+  };
+
+  const handleLogin = async () => {
+    if (!formData.email || !formData.password) {
+      Alert.alert('Error', 'Por favor completa todos los campos');
+      return;
+    }
+
+    if (!formData.email.includes('@')) {
+      Alert.alert('Error', 'Por favor ingresa un email válido');
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const user = await validateCredentials(formData.email, formData.password);
+
+      if (user) {
+        // Credenciales válidas
+        const userData = {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          loginTime: new Date().toISOString()
+        };
+
+        // Guardar en AsyncStorage
+        await AsyncStorage.setItem('userData', JSON.stringify(userData));
+
+        // Actualizar Redux store
+        dispatch(setUser(userData));
+
+        // El RootStackNavigator se encargará de la navegación automáticamente
+      } else {
+        // Credenciales inválidas
+        Alert.alert(
+          'Error de Autenticación',
+          'Email o contraseña incorrectos. Si no tienes cuenta, regístrate primero.',
+          [
+            { text: 'Intentar de nuevo', style: 'cancel' },
+            {
+              text: 'Registrarse',
+              onPress: () => navigation.navigate('Register'),
+              style: 'default'
+            }
+          ]
+        );
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Ocurrió un error al iniciar sesión. Inténtalo de nuevo.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -79,6 +150,7 @@ export default function LoginScreen({ navigation }) {
                 keyboardType="email-address"
                 autoCapitalize="none"
                 placeholderTextColor={colors.textMuted}
+                editable={!isLoading}
               />
             </View>
           </View>
@@ -94,10 +166,12 @@ export default function LoginScreen({ navigation }) {
                 onChangeText={(value) => handleInputChange('password', value)}
                 secureTextEntry={!showPassword}
                 placeholderTextColor={colors.textMuted}
+                editable={!isLoading}
               />
               <TouchableOpacity
                 onPress={() => setShowPassword(!showPassword)}
                 style={styles.eyeIcon}
+                disabled={isLoading}
               >
                 <Icon
                   name={showPassword ? "visibility" : "visibility-off"}
@@ -112,18 +186,26 @@ export default function LoginScreen({ navigation }) {
           <TouchableOpacity
             onPress={() => navigation.navigate('ForgotPassword')}
             style={styles.forgotContainer}
+            disabled={isLoading}
           >
             <Text style={styles.forgotText}>¿Olvidaste tu contraseña?</Text>
           </TouchableOpacity>
 
           {/* Login Button */}
           <TouchableOpacity
-            style={styles.primaryButton}
+            style={[styles.primaryButton, isLoading && styles.buttonDisabled]}
             onPress={handleLogin}
             activeOpacity={0.8}
+            disabled={isLoading}
           >
-            <Icon name="login" size={20} color={colors.textWhite} style={styles.buttonIcon} />
-            <Text style={styles.primaryButtonText}>Iniciar Sesión</Text>
+            {isLoading ? (
+              <ActivityIndicator size="small" color={colors.textWhite} />
+            ) : (
+              <>
+                <Icon name="login" size={20} color={colors.textWhite} style={styles.buttonIcon} />
+                <Text style={styles.primaryButtonText}>Iniciar Sesión</Text>
+              </>
+            )}
           </TouchableOpacity>
 
           {/* Divider */}
@@ -135,19 +217,19 @@ export default function LoginScreen({ navigation }) {
 
           {/* Social Buttons */}
           <View style={styles.socialContainer}>
-            <TouchableOpacity style={styles.socialButton} activeOpacity={0.7}>
+            <TouchableOpacity style={styles.socialButton} activeOpacity={0.7} disabled={isLoading}>
               <Icon name="google" size={20} color={colors.error} />
               <Text style={styles.socialText}>Google</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.socialButton} activeOpacity={0.7}>
+            <TouchableOpacity style={styles.socialButton} activeOpacity={0.7} disabled={isLoading}>
               <Icon name="facebook" size={20} color="#1877F2" />
               <Text style={styles.socialText}>Facebook</Text>
             </TouchableOpacity>
           </View>
 
           {/* Guest Access */}
-          <TouchableOpacity style={styles.guestButton} activeOpacity={0.7}>
+          <TouchableOpacity style={styles.guestButton} activeOpacity={0.7} disabled={isLoading}>
             <Icon name="person-outline" size={18} color={colors.textSecondary} style={styles.guestIcon} />
             <Text style={styles.guestText}>Continuar como invitado</Text>
           </TouchableOpacity>
@@ -171,6 +253,7 @@ export default function LoginScreen({ navigation }) {
           <TouchableOpacity
             onPress={() => navigation.navigate('Register')}
             activeOpacity={0.7}
+            disabled={isLoading}
           >
             <Text style={styles.registerLink}>Regístrate aquí</Text>
           </TouchableOpacity>
@@ -309,6 +392,9 @@ const styles = StyleSheet.create({
   },
   buttonIcon: {
     marginRight: 8,
+  },
+  buttonDisabled: {
+    opacity: 0.6,
   },
   dividerContainer: {
     flexDirection: 'row',
